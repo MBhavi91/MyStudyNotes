@@ -6,10 +6,10 @@ HTML (HyperText Markup Language) is the standard language used to create web pag
 
 ## Key Features of HTML
 
-✔ Markup Language – Uses tags (<tag>) to define elements on a page.<br>
-✔ Not a Programming Language – It structures content but doesn’t have logic like JavaScript.<br>
-✔ Works with CSS & JavaScript – HTML for structure, CSS for styling, JavaScript for interactivity.<br>
-✔ Platform Independent – Works on all devices and browsers.
+✔ **Markup Language** – Uses tags (<tag>) to define elements on a page.<br>
+✔ **Not a Programming Language** – It structures content but doesn’t have logic like JavaScript.<br>
+✔ **Works with CSS & JavaScript** – HTML for structure, CSS for styling, JavaScript for interactivity.<br>
+✔ **Platform Independent** – Works on all devices and browsers.
 <br>
 
 Below is a comprehensive list of all HTML tags grouped by category, along with their usage and examples.
@@ -266,8 +266,6 @@ Below is a comprehensive list of all HTML tags grouped by category, along with t
 | `<fieldset>` | Field grouping                      |
 | `required`   | Specifies required input fields.    |
 | `pattern`    | Validates the format of user input. |
-
-|
 
 ```
 <form action="/submit" method="POST">
