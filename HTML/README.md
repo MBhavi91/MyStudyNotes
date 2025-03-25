@@ -337,3 +337,7 @@ Below is a comprehensive list of all HTML tags grouped by category, along with t
 3. Final Project: Simple Portfolio Website
    - A homepage with a navbar, an about section, a projects section, and a contact form.
    - Internal linking between pages.
+4. Static Recipe Page
+   - Creat a HTML page to include ingredients and steps to make pancakes.
+5. Single-Page CV
+   - Create a single-page HTML CV to showcase your career history.
