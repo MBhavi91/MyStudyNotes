@@ -164,6 +164,157 @@ Below is a comprehensive roadmap to becoming a full-stack software engineer. To 
 
 ### Backend
 
+- Internet
+  - How does the internet work?
+  - What is HTTP?
+  - What is a domain name?
+  - What is hosting?
+  - DNS and how it works?
+  - Browsers and how they work?
+- Pick a Language
+  - Javascript
+  - Go
+  - Python
+  - Java
+  - PHP
+  - GO
+  - Ruby
+  - C#
+  - Rust
+- Version Control System
+  - Git
+- Repo Hosting Services
+  - GitHub
+  - GitLab
+- Relational Databases
+  - PostgreSQL
+  - MySQL
+  - MariaDB
+  - Ms SQL
+  - Oracle
+  - SQLite
+- Learn about APIs
+  - Rest
+  - Json
+  - Soap
+  - gRPC
+  - GraphQL
+  - HATEOAS
+  - Open API Specs
+  - Authentication
+    - JWT
+    - OAuth
+    - Basic Authentication
+    - Token Authentication
+    - Cookie Based Auth
+    - OpenId
+    - SAML
+- Caching
+  - Server Side
+    - Redis
+    - Memacached
+      -CDN
+      -Client Side
+- Web Security
+  - Hashing Algorithms
+    - MD5
+    - SHA
+    - Scrypt
+    - Bcrypt
+  - API Security Best Practices
+    - HTTPs
+    - OWASP Risks
+    - CORS
+    - SSL/TLS
+    - CSP
+    - Server Security
+- Testing
+  - Integration Testing
+  - Unit Testing
+  - Functional Testing
+- CD/CI
+- More about Databases
+  - ORMs
+  - ACID
+  - Transactions
+  - N + 1 Problems
+  - Normalization
+  - Failure Modes
+  - Profiling Perforamance
+  - Migrations
+- Scaling Databases
+  - Database Indexes
+  - Data Replication
+  - Sharding Strategies
+  - CAP Theorem
+- Software Design & Architecture
+  - Architectual Patterns
+    - Monolithic Apps
+    - Microservices
+    - SOA
+    - Serverless
+    - Service Mesh
+    - Twelve Factor Apps
+  - Design & Development Principles
+    - GOF Design Patterns
+    - Domain Driven Design
+    - Test Driven Developement
+    - CQRS
+    - Event Sourcing
+  - Containerxation Vs Virtualization
+    - Docker
+      -LXC
+    - Kubernets
+  - Message Brokers
+    - RabbitMQ
+    - Kafta
+  - Search Engines
+    - Elastic Search
+    - Solr
+  - Web Servers
+    - Nginx
+    - Apache
+    - Caddy
+    - Ms IIS
+  - Real-Time Data
+    - Server Sent Events
+    - WebSockets
+    - Long Polling
+    - Short Polling
+- GraphQL
+  - NoSQL Databases
+    - Key-Value
+      - Redis
+      - DynamoDB
+    - Document DBs
+      - MangoDB
+      - CouchDB
+    - Realtime
+      - Firebase
+      - RethinkDB
+    - Time Series
+      - Influx DB
+      - TimeScale
+    - Column DBs
+      - Cassandra
+      - Base
+    - Graph DBs
+      - Neo4j
+      - AWS Neptune
+  - Building For Scale
+    - Mitigation Strategies
+      - Graceful Degradation
+      - Throttling
+      - Backpressure
+      - Loadshifting
+      - Circuit Breaker
+    - Types of Scaling
+    - Obervability
+    - Difference & Usage
+      - Instrumentation
+      - Monitoring
+      - Telemetry
+
 ### API Design
 
 ### API Security Best Practices
