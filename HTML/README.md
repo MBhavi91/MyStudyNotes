@@ -47,16 +47,16 @@ Below is a comprehensive list of all HTML tags grouped by category, along with t
 | `<title>`    | Sets the page title               |
 | `<body>`     | Main content of the document      |
 
-```
+```html
 <!DOCTYPE html>
 <html lang="en">
-<head>
+  <head>
     <title>Document Title</title>
-    <meta charset="UTF-8">
-</head>
-<body>
+    <meta charset="UTF-8" />
+  </head>
+  <body>
     <p>This is the body content.</p>
-</body>
+  </body>
 </html>
 ```
 
@@ -72,18 +72,20 @@ Below is a comprehensive list of all HTML tags grouped by category, along with t
 | `<script>`                                                               | Embeds JavaScript               |
 | `<base>`                                                                 | Base URL for links              |
 
-```
+```html
 <head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <link rel="stylesheet" href="styles.css">
-    <style>
-        body { font-family: Arial, sans-serif; }
-    </style>
-    <script>
-        console.log("Hello, World!");
-    </script>
-    <base href="https://example.com/">
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <link rel="stylesheet" href="styles.css" />
+  <style>
+    body {
+      font-family: Arial, sans-serif;
+    }
+  </style>
+  <script>
+    console.log("Hello, World!");
+  </script>
+  <base href="https://example.com/" />
 </head>
 ```
 
@@ -99,32 +101,32 @@ Below is a comprehensive list of all HTML tags grouped by category, along with t
 | `<aside>`   | Content aside from main content |
 | `<footer>`  | Footer content                  |
 
-```
+```html
 <header>
-    <h1>Website Header</h1>
+  <h1>Website Header</h1>
 </header>
 
 <nav>
-    <a href="/home">Home</a>
-    <a href="/about">About</a>
+  <a href="/home">Home</a>
+  <a href="/about">About</a>
 </nav>
 
 <main>
-    <section>
-        <h2>Welcome to My Page</h2>
-        <p>Enjoy your stay!</p>
-    </section>
-    <article>
-        <h3>Latest Blog Post</h3>
-        <p>This is a sample blog post.</p>
-    </article>
-    <aside>
-        <p>Related Articles</p>
-    </aside>
+  <section>
+    <h2>Welcome to My Page</h2>
+    <p>Enjoy your stay!</p>
+  </section>
+  <article>
+    <h3>Latest Blog Post</h3>
+    <p>This is a sample blog post.</p>
+  </article>
+  <aside>
+    <p>Related Articles</p>
+  </aside>
 </main>
 
 <footer>
-    <p>Copyright © 2025</p>
+  <p>Copyright © 2025</p>
 </footer>
 ```
 
@@ -152,7 +154,7 @@ Below is a comprehensive list of all HTML tags grouped by category, along with t
 | `<sub>`        | Subscript text           |
 | `<sup>`        | Superscript text         |
 
-```
+```html
 <h1>Main Heading</h1>
 <h2>Subheading</h2>
 
@@ -183,20 +185,20 @@ Below is a comprehensive list of all HTML tags grouped by category, along with t
 | `<dt>` | Term             |
 | `<dd>` | Description      |
 
-```
+```html
 <ul>
-    <li>Item 1</li>
-    <li>Item 2</li>
+  <li>Item 1</li>
+  <li>Item 2</li>
 </ul>
 
 <ol>
-    <li>First Step</li>
-    <li>Second Step</li>
+  <li>First Step</li>
+  <li>Second Step</li>
 </ol>
 
 <dl>
-    <dt>HTML</dt>
-    <dd>HyperText Markup Language</dd>
+  <dt>HTML</dt>
+  <dd>HyperText Markup Language</dd>
 </dl>
 ```
 
@@ -212,22 +214,22 @@ Below is a comprehensive list of all HTML tags grouped by category, along with t
 | `<source>` | Media source       |
 | `<track>`  | Text tracks        |
 
-```
+```html
 <a href="https://example.com" target="_blank">Visit Example</a>
 
-<img src="image.jpg" alt="Sample Image">
+<img src="image.jpg" alt="Sample Image" />
 
 <figure>
-    <img src="image.jpg" alt="Example Image">
-    <figcaption>Image Caption</figcaption>
+  <img src="image.jpg" alt="Example Image" />
+  <figcaption>Image Caption</figcaption>
 </figure>
 
 <video controls width="400">
-    <source src="video.mp4" type="video/mp4">
+  <source src="video.mp4" type="video/mp4" />
 </video>
 
 <audio controls>
-    <source src="audio.mp3" type="audio/mpeg">
+  <source src="audio.mp3" type="audio/mpeg" />
 </audio>
 ```
 
@@ -240,12 +242,17 @@ Below is a comprehensive list of all HTML tags grouped by category, along with t
 | `<circle>` | Draws circles in SVG.                 |
 | `<rect>`   | Draws rectangles in SVG.              |
 
-```
-<canvas id="myCanvas" width="400" height="200" style="border:1px solid #000;"></canvas>
+```html
+<canvas
+  id="myCanvas"
+  width="400"
+  height="200"
+  style="border:1px solid #000;"
+></canvas>
 <script>
-  const canvas = document.getElementById('myCanvas');
-  const ctx = canvas.getContext('2d');
-  ctx.fillStyle = 'blue';
+  const canvas = document.getElementById("myCanvas");
+  const ctx = canvas.getContext("2d");
+  ctx.fillStyle = "blue";
   ctx.fillRect(20, 20, 150, 100);
 </script>
 ```
@@ -262,17 +269,19 @@ Below is a comprehensive list of all HTML tags grouped by category, along with t
 | `rowspan`   | Merges rows.    |
 | `colspan`   | Merges columns. |
 
-```
+```html
 <table border="1">
-    <caption>Sales Report</caption>
-    <tr>
-        <th>Month</th>
-        <th>Sales</th>
-    </tr>
-    <tr>
-        <td>January</td>
-        <td>$1000</td>
-    </tr>
+  <caption>
+    Sales Report
+  </caption>
+  <tr>
+    <th>Month</th>
+    <th>Sales</th>
+  </tr>
+  <tr>
+    <td>January</td>
+    <td>$1000</td>
+  </tr>
 </table>
 ```
 
@@ -290,20 +299,20 @@ Below is a comprehensive list of all HTML tags grouped by category, along with t
 | `required`   | Specifies required input fields.    |
 | `pattern`    | Validates the format of user input. |
 
-```
+```html
 <form action="/submit" method="POST">
-    <label for="name">Name:</label>
-    <input type="text" id="name" name="name" required>
+  <label for="name">Name:</label>
+  <input type="text" id="name" name="name" required />
 
-    <textarea rows="4" cols="50" placeholder="Enter your message"></textarea>
+  <textarea rows="4" cols="50" placeholder="Enter your message"></textarea>
 
-    <fieldset>
-        <legend>Select Gender:</legend>
-        <input type="radio" name="gender" value="male"> Male
-        <input type="radio" name="gender" value="female"> Female
-    </fieldset>
+  <fieldset>
+    <legend>Select Gender:</legend>
+    <input type="radio" name="gender" value="male" /> Male
+    <input type="radio" name="gender" value="female" /> Female
+  </fieldset>
 
-    <button type="submit">Submit</button>
+  <button type="submit">Submit</button>
 </form>
 ```
 
@@ -314,14 +323,12 @@ Below is a comprehensive list of all HTML tags grouped by category, along with t
 | `<script>`   | JavaScript embedding |
 | `<noscript>` | Fallback for no JS   |
 
-```
+```html
 <script>
-    alert("Hello, World!");
+  alert("Hello, World!");
 </script>
 
-<noscript>
-    Your browser does not support JavaScript.
-</noscript>
+<noscript> Your browser does not support JavaScript. </noscript>
 ```
 
 ## Others
@@ -333,21 +340,26 @@ Below is a comprehensive list of all HTML tags grouped by category, along with t
 | `<object>`   | Embeds object            |
 | `<template>` | Hidden content template  |
 
-```
+```html
 <iframe src="https://example.com" width="600" height="400"></iframe>
 
-<object data="document.pdf" type="application/pdf" width="600" height="400"></object>
+<object
+  data="document.pdf"
+  type="application/pdf"
+  width="600"
+  height="400"
+></object>
 
-<embed src="audio.mp3" type="audio/mpeg">
+<embed src="audio.mp3" type="audio/mpeg" />
 
 <template id="myTemplate">
-    <p>This is hidden template content.</p>
+  <p>This is hidden template content.</p>
 </template>
 
 <script>
-    let template = document.getElementById("myTemplate");
-    let clone = document.importNode(template.content, true);
-    document.body.appendChild(clone);
+  let template = document.getElementById("myTemplate");
+  let clone = document.importNode(template.content, true);
+  document.body.appendChild(clone);
 </script>
 ```
 
@@ -373,7 +385,7 @@ In the context of HTML, accessibility refers to designing and coding web pages t
 
 ARIA attributes provide additional semantics and context to HTML elements, which can be especially helpful for elements that don't have native HTML equivalents or when the native HTML elements don't fully convey the necessary information for assistive technologies.
 
-```
+```html
 <!-- Without ARIA -->
 <div class="button">Click Me</div>
 
