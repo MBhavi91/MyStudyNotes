@@ -1,4 +1,27 @@
-# HTML Tag Reference
+# HTML Learning Guide: From Beginner to Expert
+
+Welcome to the HTML Learning Guide! This guide is designed to take you from a complete beginner to an expert in HTML. Follow the sections below to progressively build your knowledge and skills in HTML.
+
+## Table of Contents
+
+1. [What is HTML](#what-is-html)
+2. [Key Features of HTML](#key-features-of-html)
+3. [Basic Structure](#basic-structure)
+4. [Head Elements](#head-elements)
+5. [Sectioning Tags](#sectioning-tags)
+6. [Text Content](#text-content)
+7. [List Tags](#list-tags)
+8. [Linking and Media](#linking-and-media)
+9. [Canvas and SVG](#canvas-and-svg)
+10. [Table Tags](#table-tags)
+11. [Forms and Input](#forms-and-input)
+12. [Scripting](#scripting)
+13. [Others](#others)
+14. [HTML Accessibility](#html-accessibility)
+15. [HTML Best Practices](#html-best-practices)
+16. [SEO and HTML](#seo-and-html)
+17. [Projects](#projects)
+18. [Resources](#resources)
 
 ## What is HTML?
 
@@ -328,6 +351,41 @@ Below is a comprehensive list of all HTML tags grouped by category, along with t
 </script>
 ```
 
+## HTML Accessibility
+
+Learn how to make your HTML content accessible to all users, including those with disabilities.
+
+### Topics
+
+- What is Accessibility?
+- ARIA (Accessible Rich Internet Applications)
+- Using Semantic Tags for Accessibility
+- Best Practices for Accessible HTML
+
+## HTML Best Practices
+
+Explore best practices to write clean, maintainable, and efficient HTML code.
+
+### Topics
+
+- Writing Clean HTML
+- Avoiding Inline Styles
+- Using External CSS and JavaScript
+- Commenting Your Code
+- Organizing Your Files
+
+## SEO and HTML
+
+Understand the role of HTML in Search Engine Optimization (SEO) to improve the visibility of your web pages.
+
+### Topics
+
+- What is SEO?
+- Using Meta Tags
+- Proper Use of Headings
+- Alt Text for Images
+- Structured Data
+
 ## Projects
 
 1. Simple Project: Personal Profile Page
@@ -341,3 +399,13 @@ Below is a comprehensive list of all HTML tags grouped by category, along with t
    - Creat a HTML page to include ingredients and steps to make pancakes.
 5. Single-Page CV
    - Create a single-page HTML CV to showcase your career history.
+
+## Resources
+
+Here are some additional resources to help you on your HTML learning journey:
+
+- [MDN Web Docs - HTML](https://developer.mozilla.org/en-US/docs/Web/HTML)
+- [W3Schools - HTML](https://www.w3schools.com/html/)
+- [freeCodeCamp - Responsive Web Design Certification](https://www.freecodecamp.org/learn/responsive-web-design/)
+- [HTML.com](https://html.com/)
+- [HTML5 Rocks](https://www.html5rocks.com/en/)
