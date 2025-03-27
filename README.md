@@ -8,6 +8,28 @@ You might wonder why I am creating a GitHub page if such a website already exist
 
 Below is a comprehensive roadmap to becoming a full-stack software engineer. To avoid overwhelming information, I have categorized it systematically. The roadmap provides an overview of the full-stack development journey, followed by a detailed breakdown of each aspect.
 
+## Table of Content
+
+1. [FullStack](#full-stack)
+2. [FrontEnd](#frontend)
+3. [Backend](#backend)
+4. [API Design](#api-design)
+5. [API Security Best Practices](#api-security-best-practices)
+6. [API Performance Best Practices](#api-performance-best-practices)
+7. [Software Architecture](#software-architecture)
+8. [Git and GitHub](#git-and-github)
+9. [React](#react)
+10. [Asp.net Core](#aspnet-core)
+11. [JavaScript](#javascript)
+12. [TypeScript](#typescript)
+13. [SQL](#sql)
+14. [PostgreSQL](#postgresql)
+15. [Docker](#docker)
+16. [Kubernetes](#kubernetes)
+17. [Data Structure](#data-structure)
+18. [System Design](#system-design)
+19. [Code Review](#code-review)
+
 ## Role-Based Road Map
 
 ### Full Stack
@@ -316,6 +338,85 @@ Below is a comprehensive roadmap to becoming a full-stack software engineer. To 
       - Telemetry
 
 ### API Design
+
+- Learn the basics (Building APIs)
+  - What is APIs
+  - HTTP
+    - HTTP Versions
+    - HTTP Methods
+    - HTTP Status Codes
+    - HTTP Headers
+    - Cookies
+    - CORS
+    - HTTP Caching
+  - URL, Query & Path Parameters
+  - Content Negotiation
+  - Understand TCP/IP
+  - Basics of DNS
+- Different APIs Styles
+  - RESTful APIs
+  - Simple JSON APIs
+  - SOAP APIs
+  - GraphQL APIs
+  - gRPC APIs
+- Building JSON/RESTful APIs
+  - REST Principles
+  - URI Design
+  - Versioning Stratergies
+  - Handling CRUD OPerations
+  - Pagination
+  - Rate Limiting
+  - Idempotency
+  - HATEOAS
+  - Error Handling
+  - RFC 7807 - Problem Details for APIs
+- Authentication Methods (API Authentication and Authorization)
+  - Basic Auth
+  - Token Based Auth
+  - JWT
+  - OAuth 2.0
+  - Session Based Auth
+- Authoization Methods
+  - Role Based Access Control(RBAC)
+  - Atrribute Based Access Control(ABAC)
+- API Keys & Management
+- API Documentation Tools
+  - Swagger / Open API
+  - Readme
+  - Stoplight
+  - Postman
+- API Security
+- API Performance
+  - Performance Metrics
+  - Caching Strategies
+  - Load Balancing
+  - Rate Limitting/ Throttling
+  - Profiling & Monitoring
+  - Performance Testing
+  - Error Handling / Retries
+- API Integration Patterns
+  - Synchronous vs Asynchronous APIs
+  - Event Driven Architecture
+  - API Gateways
+  - Microservices Architecture
+  - Webhooks vs Polling
+  - Batch Processing
+  - Messaging Queues
+    - Rabbit MQ
+    - Kafta
+- API Testing
+  - Mocking APIs
+  - Contract Testing
+- Real-time APIs
+  - Web Sockets
+  - Server Sent Events
+- API Lifecycle Management
+- Standards and Compliance
+  - GDPR
+  - CCPA
+  - PCI DSS
+  - HIPAA
+  - PII
 
 ### API Security Best Practices
 
