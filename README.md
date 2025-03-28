@@ -69,12 +69,11 @@ Below is a comprehensive roadmap to becoming a full-stack software engineer. To 
 
 ### Frontend
 
-- Internet
+- [Internet](./Internet/README.md)
   - How does the internet work?
   - What is HTTP?
   - What is a domain name?
   - What is hosting?
-  - DNS and how it works?
   - Browsers and how they work?
 - [HTML](./HTML)
   - Learn the basics
@@ -186,12 +185,11 @@ Below is a comprehensive roadmap to becoming a full-stack software engineer. To 
 
 ### Backend
 
-- Internet
+- [Internet](./Internet/README.md)
   - How does the internet work?
   - What is HTTP?
   - What is a domain name?
   - What is hosting?
-  - DNS and how it works?
   - Browsers and how they work?
 - Pick a Language
   - Javascript
