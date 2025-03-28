@@ -1,7 +1,10 @@
+*
+{
+    margin: 0px;
+}
 body
 {
     background-color:rgb(255, 255, 238) ;
-    margin: 0px;
     font-family: serif;
 }
 .header
@@ -15,18 +18,32 @@ body
 {
     font-size: 45px;
     padding-top: 35px;
-    margin: 0px;
+   
 }
 .role
 {
     color:#428A91;
-    margin: 0px;
     font-size: 20px;
 }
 .intro
 {
-    margin: 0px;
     font-size: 15px;
     padding-top: 15px;
     padding-bottom: 15px;
+}
+.contactInfo
+{
+    background-color:#222A33;
+    color: white;
+    padding: 5px 0px 5px 15px;
+}
+.contactInfo section
+{
+    display: inline-block;
+    padding-left: 15px;
+    padding-right: 45px;
+}
+.contactInfo section span
+{
+    vertical-align: 6px;
 }
