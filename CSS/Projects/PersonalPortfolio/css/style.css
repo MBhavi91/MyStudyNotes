@@ -47,3 +47,71 @@ body
 {
     vertical-align: 6px;
 }
+.content
+{
+    float: left;
+}
+.content section
+{
+   padding: 25px 50px ;
+   width: 500px;
+}
+.content section > h2
+{
+    color: #428A91;
+    font-size: 30px;
+    padding-bottom: 10px;
+    text-decoration: underline;
+    text-underline-offset: 15px;
+    margin-bottom: 25px;
+}
+.content section article > span
+{
+    background-color: #222A33;
+    color: white;
+    padding: 10px;
+    border-radius: 15px;
+    margin: 5px 0px;
+    font-size: 14px;
+    line-height: 3;
+}
+.CertificationDetails
+{
+    margin-bottom: 15px;
+    font-style: italic;
+    color: gray;
+    font-size: 15px;
+}
+.locationAndDate
+{
+    font-size: 14px;
+    color: #428A91;
+    padding-top: 5px;
+    padding-bottom: 10px;
+    font-style: italic;
+    width: 100%;
+    display: flex;
+    justify-content: space-between;
+}
+.locationAndDate .left {
+    text-align: left;
+}
+
+.locationAndDate .right {
+    text-align: right;
+}
+.jobDescription ul
+{
+    padding: 0px 15px;
+    list-style-type: disc;
+    margin-bottom: 20px;
+}
+.jobDescription ul li
+{
+    padding: 5px;
+}
+.jobDescription ul li::marker
+{
+    color: #428A91;
+    font-size: 23px;
+}
