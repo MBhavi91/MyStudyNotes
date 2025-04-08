@@ -291,7 +291,7 @@ By default, an element’s width/height only includes the content area. You can 
 }
 ```
 
-### Typography: Fonts, text alignment, and spacing.
+### Typography
 
 Typography in CSS controls how text appears on a webpage, including font styles, alignment, and spacing.
 
@@ -337,13 +337,13 @@ You can specify fonts using built-in system fonts, web-safe fonts, or custom web
 
 - **Google Fonts Example** (Using external fonts)
 
-      ```css
-      @import url('https://fonts.googleapis.com/css2?family=Roboto:wght@400;700&display=swap');
+  ```css
+  @import url("https://fonts.googleapis.com/css2?family=Roboto:wght@400;700&display=swap");
 
-      body {
-      font-family: 'Roboto', sans-serif;
-      }
-      ```
+  body {
+    font-family: "Roboto", sans-serif;
+  }
+  ```
 
 #### Text Alignment
 
@@ -421,10 +421,126 @@ p {
 
 ## Intermediate CSS
 
-- **Positioning**: Static, relative, absolute, fixed, and sticky.
-- **Flexbox**: Building responsive layouts.
-- **Grid**: Advanced layout techniques.
-- **Transitions and Animations**: Adding interactivity.
+### Positioning and Layout
+
+CSS provides several properties to control how elements are arranged and interact with one another in a layout.
+
+#### Positioning
+
+1. **Static** (Default)
+   ```css
+   position: static;
+   ```
+
+- Elements follow the normal document flow.
+
+- Cannot be offset using top, right, bottom, or left.
+
+2. **Relative**
+   ```css
+   position: relative;
+   top: 10px;
+   left: 20px;
+   ```
+
+- Keeps its original space but moves visually based on the offsets.
+
+3. **Absolute**
+   ```css
+   position: absolute;
+   top: 0;
+   left: 0;
+   ```
+
+- Removed from document flow.
+
+- Positioned relative to the nearest non-static ancestor or the <html> element if none.
+
+4. **Fixed**
+   ```css
+   position: fixed;
+   bottom: 0;
+   right: 0;
+   ```
+
+- Positioned relative to the viewport.
+
+- Stays in place during scrolling.
+
+5. **Sticky**
+   ```css
+   position: sticky;
+   top: 0;
+   ```
+
+- Behaves like relative until a scroll threshold, then becomes fixed.
+
+> In CSS, sticky positioning allows an element to scroll with the page until it reaches a defined offset, after which it "sticks" in place within its parent container—ideal for headers or section labels. In contrast, fixed positioning keeps an element locked to a specific spot on the screen regardless of scrolling, making it useful for persistent elements like nav bars or floating buttons. The key difference is that sticky is scroll-aware and constrained by its container, while fixed is always attached to the viewport.
+
+#### Display
+
+The display property determines how an element is rendered in the document flow.
+
+```css
+display: block; /_ Default for div, takes full width _/
+display: inline; /_ Sits in line, no width/height control _/
+display: inline-block; /_ Like inline but allows box styling _/
+display: none; /_ Hides the element completely _/
+display: flex; /_ Enables flexbox layout _/
+display: grid; /_ Enables grid layout _/
+```
+
+- Block elements stack vertically.
+
+- Inline elements flow horizontally.
+
+- Inline-block combines inline flow with block features.
+
+#### Float
+
+Float allows elements (typically images or boxes) to be taken out of the normal flow and aligned to the left or right.
+
+```css
+float: left;
+float: right;
+```
+
+- Other content will flow around the floated element.
+
+- Floats are commonly used in traditional multi-column layouts.
+
+**Example:**
+
+```css
+img {
+  float: left;
+  margin-right: 10px;
+}
+```
+
+#### Clear
+
+The clear property prevents elements from wrapping around floated elements.
+
+```css
+clear: left; /_ Clears left-floated elements _/
+clear: right; /_ Clears right-floated elements _/
+clear: both; /_ Clears both left and right floats _/
+```
+
+**Example:**
+
+```css
+.clearfix {
+  clear: both;
+}
+```
+
+### **Flexbox**: Building responsive layouts.
+
+### **Grid**: Advanced layout techniques.
+
+### **Transitions and Animations**: Adding interactivity.
 
 ## Advanced CSS
 
@@ -452,3 +568,7 @@ p {
 - [Can I Use](https://caniuse.com/)
 
 Happy learning!
+
+```
+
+```
