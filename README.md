@@ -422,6 +422,111 @@ Below is a comprehensive roadmap to becoming a full-stack software engineer. To 
 
 ### Software Architecture
 
+- Understand the Basics
+  - What is Software Architecture
+  - Level of Architecture
+    - Application Architecture
+    - Solution Architecture
+    - Enterprice Architecture
+- Responsibilities
+  - Tech Decision
+  - Design & Architecture Decisions
+  - Requirements Elicitation
+  - Documentation
+  - Enfocing Standards
+  - Collaborate with others
+  - Consult & Coach Developers
+- Important Skills to Learn
+  - Design & Architecture
+  - Decision Making
+  - Simplifyling Things
+  - How to code
+  - Documentation
+  - Communication
+  - Estimate and Evaluate
+  - Balance
+  - Consult & Coach
+  - Marketing Skills
+- Techincal Skills
+- Programming Language
+  - Java/Kotlin/Scala
+  - Python
+  - Ruby
+  - Go
+  - Typescript/Javascript
+  - .Net Framework Based
+- Patterns & Design Principles
+  - MVC, MVP, MVVM
+  - CQRS, Eventual Consistency
+  - OOP
+  - Actors
+  - ACID, CAP Theorem
+  - SOLID/TDD/DDD
+- Tools
+  - Git/Github
+  - Slack
+  - Trello
+  - Atlassian Tools
+- Architecture
+  - Microservices
+  - Serverless
+  - Client/Server
+  - Layered
+  - Distributed Systems
+  - Service Oriented
+- Security
+  - Hasing Algorithms
+  - PKI
+  - OWASP
+  - Auth Stratergies
+- Working with Data
+  - Hadoop, Spark, MapReduce
+  - ETL, Datawarehouses
+  - SQL Databases
+  - NoSQL Databases
+- API & Integrations
+  - gRPC
+  - ESB/SOAP
+  - REST
+  - GraphQL
+  - BPM, BPEL
+  - Messaging Queues
+- Web, Mobile
+  - Reactive Programming
+  - Functional Programming
+  - React, Vue, Angular
+  - SPA, SSR, SSG
+  - Microfrontends
+  - W3C and WHATWQ
+- Frameworks
+  - BABOK
+  - IAF
+  - UML
+  - TOGAF
+- Management
+  - Agile Model
+- Networks
+  - OSI
+  - TCP/IP Model
+  - HTTP, HTTPs
+  - Proxies
+  - Firewalls
+- Operational Knowledge
+  - Infrastructure as Code
+  - Cloud Providers
+  - Serverless Concepts
+  - Linux/ Unix
+  - Serice Mesh
+  - CD/CI
+  - Containers
+  - Clound Design Patterns
+    -Enterprice Softwares
+  - MS Dynamics
+  - SAP ERP, HANA, Business Objects
+  - EMC DMS
+  - IBM BPM
+  - SalesForce
+
 ## Skill-Based Roadmap
 
 ### Git and GitHub
