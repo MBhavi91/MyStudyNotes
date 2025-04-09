@@ -538,9 +538,491 @@ clear: both; /_ Clears both left and right floats _/
 
 ### **Flexbox**: Building responsive layouts.
 
+Flexbox (Flexible Box Layout) is a one-dimensional layout model in CSS that makes it easier to design flexible and responsive layout structures. It helps distribute space within a container, even when the size of its children is unknown or dynamic.
+
+Flexbox works along two axes:
+
+**Main axis** – defined by flex-direction
+
+**Cross axis** – perpendicular to the main axis
+
+To use Flexbox, set the container’s display property to flex or inline-flex.
+
+```css
+.container {
+  display: flex;
+}
+```
+
+#### Container Properties
+
+1. **flex-direction:** Defines the direction of the main axis (i.e., how flex items are placed in the flex container).
+
+   ```css
+   flex-direction: row | row-reverse | column | column-reverse;
+   ```
+
+   **row (default):** left to right (horizontal)
+
+   **row-reverse:** right to left
+
+   **column:** top to bottom (vertical)
+
+   **column-reverse:** bottom to top
+
+2. **flex-wrap:** Controls whether flex items wrap when there isn't enough space.
+
+   ```css
+   flex-wrap: nowrap | wrap | wrap-reverse;
+   ```
+
+   **nowrap (default):** All items stay on one line
+
+   **wrap:** Items wrap onto multiple lines
+
+   **wrap-reverse:** Items wrap in reverse order
+
+3. **flex-flow:** A shorthand for flex-direction and flex-wrap.
+
+   ```css
+   flex-flow: row wrap;
+   ```
+
+4. **justify-content:** Aligns items along the main axis.
+
+   ```css
+   justify-content: flex-start | flex-end | center | space-between |
+     space-around | space-evenly;
+   ```
+
+   **flex-start:** Align items to the start
+
+   **flex-end:** Align items to the end
+
+   **center:** Center items
+
+   **space-between:** Evenly distributes items, first at start and last at end
+
+   **space-around:** Even spacing around items
+
+   **space-evenly:** Equal space between and around items
+
+5. **align-items:** Aligns items along the cross axis.
+
+   ```css
+   align-items: flex-start | flex-end | center | baseline | stretch;
+   ```
+
+   **flex-start:** Align items to the start of the cross axis
+
+   **flex-end:** Align to the end
+
+   **center:** Center items vertically
+
+   **baseline:** Align items by text baseline
+
+   **stretch:** Stretch to fill container (default)
+
+6. **align-content:** Aligns multiple lines of content along the cross axis (only applies when items wrap).
+
+   ```css
+   align-content: flex-start | flex-end | center | space-between | space-around
+     | stretch;
+   ```
+
+#### Item Properties (Flex Items)
+
+1. **order:** Controls the order of items.
+
+   ```css
+   .item {
+     order: 2;
+   }
+   ```
+
+   Lower values appear first
+
+   Default is 0
+
+2. **flex-grow:** Defines how much a flex item can grow relative to others.
+
+   ```css
+   .item {
+     flex-grow: 1;
+   }
+   ```
+
+   A value of 1 makes the item grow to fill available space
+
+   If all items have flex-grow: 1, space is shared equally
+
+3. **flex-shrink:** Defines how much a flex item can shrink when space is tight.
+
+   ```css
+   .item {
+     flex-shrink: 1;
+   }
+   ```
+
+   Default is 1 (items can shrink)
+
+   Set to 0 to prevent shrinking
+
+4. **flex-basis:** Sets the initial size of an item before flex-grow and flex-shrink are applied.
+
+   ```css
+   .item {
+     flex-basis: 200px;
+   }
+   ```
+
+   Can be a length or percentage
+
+   Overrides the item’s width or height
+
+5. **flex:** A shorthand for flex-grow, flex-shrink, and flex-basis.
+
+   ```css
+   .item {
+     flex: 1 1 200px;
+   }
+   ```
+
+   Common short forms: flex: 1 (grow only), flex: 0 0 auto
+
+6. **align-self** Overrides align-items for individual flex items.
+
+   ```css
+   .item {
+     align-self: center;
+   }
+   ```
+
+   Same values as align-items
+
+#### Example: Basic Flex Layout
+
+```css
+.container {
+  display: flex;
+  flex-direction: row;
+  justify-content: space-between;
+  align-items: center;
+}
+.item {
+  flex: 1;
+  padding: 10px;
+}
+```
+
+#### Why Use Flexbox?
+
+- Easily aligns items both horizontally and vertically
+
+- Automatically adjusts layout to fit various screen sizes
+
+- Great for components like navbars, cards, grids, and more
+
 ### **Grid**: Advanced layout techniques.
 
+CSS Grid Layout is a powerful system for creating two-dimensional layouts on the web. Unlike Flexbox (which handles layout in one direction at a time—row or column), Grid allows for both rows and columns simultaneously, making it ideal for complex designs like galleries, dashboards, and application layouts.
+
+#### Basic Setup
+
+To use CSS Grid, define a container with `display: grid`:
+
+```css
+.container {
+  display: grid;
+}
+```
+
+This turns all direct children into grid items.
+
+#### Core Properties
+
+#### Container Properties (Grid Parent)
+
+1. **grid-template-columns / grid-template-rows:** Defines the structure of columns and rows using lengths (px, %, fr, auto).
+
+   ```css
+   grid-template-columns: 1fr 2fr 1fr;
+   grid-template-rows: 100px auto;
+   ```
+
+   fr unit distributes available space proportionally.
+
+   auto fits content size.
+
+2. **gap / row-gap / column-gap:** Defines space between grid items.
+
+   ```css
+   gap: 20px; /_ Applies to both rows and columns _/
+   row-gap: 10px;
+   column-gap: 15px;
+   ```
+
+3. **grid-template-areas:** Creates named areas to make layout more readable.
+
+   ```css
+   grid-template-areas:
+     "header header"
+     "sidebar content"
+     "footer footer";
+   ```
+
+   Use grid-area in child items to assign them.
+
+4. **grid-auto-rows / grid-auto-columns:** Sets the size for implicitly created rows/columns (if you add more items than defined).
+
+   ```css
+   grid-auto-rows: 100px;
+   grid-auto-columns: 1fr;
+   ```
+
+5. **grid-auto-flow:** Controls how items are placed when you don’t manually position them.
+
+   ```css
+   grid-auto-flow: row; /_ default _/
+   grid-auto-flow: column; /_ places items by column _/
+   grid-auto-flow: dense; /_ fills in holes in the grid _/
+   ```
+
+#### Item Properties (Grid Children)
+
+1. **grid-column / grid-row:** Controls where an item starts and ends.
+
+   ```css
+   grid-column: 1 / 3; /_ Spans from column line 1 to 3 _/
+   grid-row: 2 / 4;
+   ```
+
+2. **grid-column-start, grid-column-end:** More explicit version of the shorthand:
+
+   ```css
+   grid-column-start: 1;
+   grid-column-end: 4;
+   ```
+
+3. **grid-row-start, grid-row-end:** Same concept as above but for rows.
+
+   ```css
+   grid-row-start: 1;
+   grid-row-end: 4;
+   ```
+
+4. **grid-area:** Can either name an area from grid-template-areas or define all four line values:
+
+   ```css
+   grid-area: header; /_ Matches template name _/
+   grid-area: 2 / 1 / 3 / 4; /_ row-start / col-start / row-end / col-end _/
+   ```
+
+5. **justify-self:** Aligns individual items horizontally in a cell.
+
+   ```css
+   justify-self: start | end | center | stretch;
+   ```
+
+6. **align-self:** Aligns individual items vertically in a cell.
+
+   ```css
+   align-self: start | end | center | stretch;
+   ```
+
+#### Container Alignment
+
+- **justify-items** – horizontal alignment of all items in cells.
+
+- **align-items** – vertical alignment of all items in cells.
+
+- **justify-content** – alignment of entire grid within the container.
+
+- **align-content** – vertical alignment of entire grid within the container.
+
+  ```css
+  justify-items: center;
+  align-items: stretch;
+
+  justify-content: space-between;
+  align-content: center;
+  ```
+
+#### Example Grid Layout
+
+```css
+.container {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  grid-template-rows: auto 200px;
+  gap: 20px;
+}
+.item1 {
+  grid-column: 1 / 3;
+}
+.item2 {
+  grid-column: 3 / 4;
+}
+```
+
+#### Responsive Grids
+
+CSS Grid pairs well with media queries to build adaptive layouts:
+
+```css
+@media (max-width: 768px) {
+.container {
+grid-template-columns: 1fr; /_ stack items vertically _/
+}
+}
+```
+
+#### When to Use Grid
+
+- Designing complete page layouts
+- Creating complex, structured arrangements
+- Aligning elements in both rows and columns
+- Replacing older table-based or float-based layouts
+
 ### **Transitions and Animations**: Adding interactivity.
+
+#### CSS Transitions – Properties
+
+CSS Transitions allow elements to change property values smoothly (over a duration) rather than instantly. You define which properties to animate and how they behave during the transition.
+
+1. **transition-property:** Specifies the CSS property that will be transitioned.
+
+   ```css
+   transition-property: background-color, transform;
+   ```
+
+   Can specify one or more properties.
+
+   Use all to transition every animatable property.
+
+2. **transition-duration:** Defines how long the transition takes.
+
+   ```css
+   transition-duration: 0.5s; /_ or 500ms _/
+   ```
+
+   Accepts time values (s or ms).
+
+   You can specify multiple durations if transitioning multiple properties.
+
+3. **transition-timing-function:** Describes how the speed of the transition progresses.
+
+   ```css
+   transition-timing-function: ease-in-out;
+   ```
+
+   Common values:
+
+   **linear:** constant speed
+
+   **ease:** starts slow, then fast, then slow
+
+   **ease-in:** starts slow
+
+   **ease-out:** ends slow
+
+   **ease-in-out:** slow start and end
+
+   **cubic-bezier(x1, y1, x2, y2):** custom acceleration curve
+
+4. **transition-delay:** Delays the start of the transition by a specified time.
+
+   ```css
+   transition-delay: 0.2s;
+   ```
+
+5. **transition (shorthand):** Combines all transition properties into one line.
+
+   ```css
+   transition: background-color 0.5s ease-in-out 0.2s;
+   ```
+
+   Order: property duration timing-function delay
+
+#### CSS Animations – Properties
+
+CSS Animations are more complex than transitions and involve defining keyframes to describe styles at various points during the animation.
+
+1. **animation-name:** Specifies the name of the @keyframes rule to apply.
+
+   ```css
+   animation-name: slideIn;
+   ```
+
+2. **animation-duration:** Specifies how long one cycle of the animation takes.
+
+   ```css
+   animation-duration: 1s;
+   ```
+
+3. **animation-timing-function:** Defines the pacing of the animation, same options as transition-timing-function.
+
+   ```css
+   animation-timing-function: ease-in-out;
+   ```
+
+4. **animation-delay:** Sets a delay before the animation starts.
+
+   ```css
+   animation-delay: 0.3s;
+   ```
+
+5. **animation-iteration-count:** Specifies how many times the animation should repeat.
+
+   ```css
+   animation-iteration-count: infinite; /_ or a number like 3 _/
+   ```
+
+6. **animation-direction:** Controls whether the animation plays forward, backward, or alternates.
+
+   ```css
+   animation-direction: alternate;
+   ```
+
+   **Options:**
+
+   normal (default)
+
+   reverse
+
+   alternate (forward then backward)
+
+   alternate-reverse
+
+7. **animation-fill-mode:** Determines how styles are applied before and after animation.
+
+   ```css
+   animation-fill-mode: forwards;
+   ```
+
+   **Options:**
+
+   none (default)
+
+   forwards: keeps end style
+
+   backwards: applies initial style during delay
+
+   both: applies both forwards and backwards rules
+
+8. **animation-play-state:** Allows you to pause or resume an animation.
+
+   ```css
+   animation-play-state: paused; /_ or running _/
+   ```
+
+9. **animation (shorthand):** A shorthand to set all animation properties in one line.
+
+   ```css
+   animation: slideIn 2s ease-in-out 0.5s infinite alternate forwards;
+   ```
+
+   Order: name duration timing-function delay iteration-count direction fill-mode
 
 ## Advanced CSS
 
@@ -554,11 +1036,14 @@ clear: both; /_ Clears both left and right floats _/
 
 ### Beginner Projects
 
-- Personal Portfolio Page – Show your skills, about section, and a contact form.
-- Basic Landing Page – A simple webpage with a heading, paragraph, and an image.
-- CSS Cards – Create beautiful cards using box-shadow, border-radius, and padding.
-- Simple Navigation Bar – Build a horizontal navigation bar with hover effects.
-- Pricing Table – Create a simple pricing table using CSS Grid or Flexbox.
+- [Personal Portfolio Page](../CSS/Projects/PersonalPortfolio/)
+- [Login Page](../CSS/Projects/LoginPage/)
+- Basic Landing Page
+- CSS Cards
+- [Hamburger Menu](../CSS/Projects/HamburgerMenu/)
+- Pricing Table
+- Popup Menu
+- CSS Image Slider
 
 ## Resources
 
@@ -568,6 +1053,10 @@ clear: both; /_ Clears both left and right floats _/
 - [Can I Use](https://caniuse.com/)
 
 Happy learning!
+
+```
+
+```
 
 ```
 
