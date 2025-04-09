@@ -384,6 +384,7 @@ Below is a comprehensive roadmap to becoming a full-stack software engineer. To 
   - Stoplight
   - Postman
 - API Security
+  - API Security Best Practices
 - API Performance
   - Performance Metrics
   - Caching Strategies
@@ -392,6 +393,7 @@ Below is a comprehensive roadmap to becoming a full-stack software engineer. To 
   - Profiling & Monitoring
   - Performance Testing
   - Error Handling / Retries
+  - API Performance Best Practices
 - API Integration Patterns
   - Synchronous vs Asynchronous APIs
   - Event Driven Architecture
@@ -415,10 +417,6 @@ Below is a comprehensive roadmap to becoming a full-stack software engineer. To 
   - PCI DSS
   - HIPAA
   - PII
-
-### API Security Best Practices
-
-### API Performance Best Practices
 
 ### Software Architecture
 
