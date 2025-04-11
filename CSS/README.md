@@ -1102,15 +1102,12 @@ Here are the most commonly used attributes and their meanings:
 Mobile-first means you design and style your site for small screens first, then use media queries to enhance the experience for larger devices.
 
 - You write base CSS for mobile (smallest screen).
-
 - Then you add styles for larger screens with min-width media queries.
 
 Why it's better:
 
 - Mobile users are the majority.
-
 - Forces you to prioritize essential content.
-
 - Results in faster-loading pages on mobile.
 
 **Example Flow:**
@@ -1135,10 +1132,10 @@ Why it's better:
 
 #### Best Practices
 
-- Use relative units like %, em, rem, vw, vh instead of px where possible.
+- Use relative units like `%`, `em`, `rem`, `vw`, `vh` instead of `px` where possible.
 - Combine media queries with flexbox or CSS grid for powerful layouts.
 - Optimize touch targets (buttons, links) for smaller screens.
-- Use responsive images (via srcset or CSS) to improve performance.
+- Use responsive images (via `srcset` or CSS) to improve performance.
 
 ### CSS Variables
 
@@ -1156,13 +1153,12 @@ CSS variables are declared using a double hyphen (--) and are typically defined 
 }
 ```
 
-- :root is a pseudo-class that represents the top-level element (<html>).
-
+- `:root` is a pseudo-class that represents the top-level element (`<html>`).
 - Variable names are case-sensitive.
 
 #### Using Variables
 
-You use the var() function to insert the value of a variable.
+You use the `var()` function to insert the value of a variable.
 
 ```css
 body {
@@ -1258,7 +1254,7 @@ The two most popular are:
 - SASS (Syntactically Awesome Style Sheets)
 - LESS (Leaner Style Sheets)
 
-** Why Use a Preprocessor?**
+**Why Use a Preprocessor?**
 
 - Use variables for colors, spacing, fonts, etc.
 - Nesting to mirror HTML structure.
@@ -1327,7 +1323,7 @@ SASS has two syntaxes:
     @import "buttons";
     ```
 
-    SASS now prefers @use and @forward over @import.
+    SASS now prefers `@use` and `@forward` over `@import`.
 
 5.  **Operators & Functions**
 
@@ -1448,7 +1444,7 @@ Efficient CSS helps reduce render time, improves page speed, and ensures maintai
    **Inefficient:**
 
    ```css
-   - {
+   * {
      margin: 0;
    }
    div ul li a {
@@ -1478,7 +1474,7 @@ Efficient CSS helps reduce render time, improves page speed, and ensures maintai
    }
    ```
 
-   **\*After (minified):**
+   **After (minified):**
 
    ```css
    body {
