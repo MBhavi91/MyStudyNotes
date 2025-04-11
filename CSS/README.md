@@ -9,7 +9,6 @@ Welcome to the CSS Learning Guide! This document will help you navigate through 
 3. [Intermediate CSS](#intermediate-css)
 4. [Advanced CSS](#advanced-css)
 5. [Projects](#projects)
-6. [Resources](#resources)
 
 ---
 
@@ -723,7 +722,7 @@ To use Flexbox, set the container’s display property to flex or inline-flex.
 
 - Great for components like navbars, cards, grids, and more
 
-### **Grid**: Advanced layout techniques.
+### Grid
 
 CSS Grid Layout is a powerful system for creating two-dimensional layouts on the web. Unlike Flexbox (which handles layout in one direction at a time—row or column), Grid allows for both rows and columns simultaneously, making it ideal for complex designs like galleries, dashboards, and application layouts.
 
@@ -884,7 +883,7 @@ grid-template-columns: 1fr; /_ stack items vertically _/
 - Aligning elements in both rows and columns
 - Replacing older table-based or float-based layouts
 
-### **Transitions and Animations**: Adding interactivity.
+### Transitions and Animations
 
 #### CSS Transitions – Properties
 
@@ -1026,11 +1025,719 @@ CSS Animations are more complex than transitions and involve defining keyframes 
 
 ## Advanced CSS
 
-- **Responsive Design**: Media queries and mobile-first design.
-- **CSS Variables**: Reusable and maintainable styles.
-- **Preprocessors**: Introduction to SASS/LESS.
-- **CSS Frameworks**: Overview of Bootstrap, Tailwind, etc.
-- **Performance Optimization**: Writing efficient CSS.
+### Responsive Design
+
+Responsive design ensures your website looks and works great on all devices — from small smartphones to large desktop monitors. This is achieved using flexible layouts, scalable images, and media queries, which allow you to apply different styles depending on screen size, resolution, or other device characteristics.
+
+#### Media Queries – What Are They?
+
+Media queries are CSS techniques that apply styles conditionally, based on features of the user's device (like screen width, height, resolution, orientation, etc.).
+
+##### Basic Syntax:
+
+```css
+@media media-type and (condition) {
+/_ CSS rules _/
+}
+```
+
+##### Example:
+
+```css
+@media screen and (max-width: 768px) {
+  body {
+    background-color: lightgray;
+  }
+}
+```
+
+This code applies the style only when the screen width is 768px or less.
+
+Common Media Query Features and Attributes
+Here are the most commonly used attributes and their meanings:
+
+1. **min-width:** Applies styles if screen width is greater than or equal to the value.
+2. **max-width:** Applies styles if screen width is less than or equal to the value.
+3. **min-height:** Checks if the height is at least the given value.
+4. **max-height:** Checks if the height is at most the given value.
+5. **orientation:** portrait or landscape. Useful for tablets and phones.
+6. **aspect-ratio:** Width-to-height ratio of the viewport (e.g. 16/9).
+7. **resolution** Used for high-resolution screens (dpi or dppx).
+8. **hover, pointer:** Detects input capabilities (like if a mouse or touchscreen is being used).
+
+##### Examples
+
+**Responsive Layouts**
+
+```css
+/_ Base (mobile-first) _/ .container {
+  display: block;
+}
+
+/_ Tablet and up _/ @media (min-width: 768px) {
+  .container {
+    display: flex;
+  }
+}
+
+/_ Desktop and up _/ @media (min-width: 1024px) {
+  .container {
+    justify-content: space-between;
+  }
+}
+```
+
+**Orientation Example**
+
+```css
+@media (orientation: landscape) {
+  .gallery {
+    grid-template-columns: repeat(4, 1fr);
+  }
+}
+```
+
+### Mobile-First Design
+
+Mobile-first means you design and style your site for small screens first, then use media queries to enhance the experience for larger devices.
+
+- You write base CSS for mobile (smallest screen).
+
+- Then you add styles for larger screens with min-width media queries.
+
+Why it's better:
+
+- Mobile users are the majority.
+
+- Forces you to prioritize essential content.
+
+- Results in faster-loading pages on mobile.
+
+**Example Flow:**
+
+```css
+/_ Mobile first _/ body {
+  font-size: 16px;
+}
+
+/_ Tablets and above _/ @media (min-width: 768px) {
+  body {
+    font-size: 18px;
+  }
+}
+
+/_ Desktops and above _/ @media (min-width: 1024px) {
+  body {
+    font-size: 20px;
+  }
+}
+```
+
+#### Best Practices
+
+- Use relative units like %, em, rem, vw, vh instead of px where possible.
+- Combine media queries with flexbox or CSS grid for powerful layouts.
+- Optimize touch targets (buttons, links) for smaller screens.
+- Use responsive images (via srcset or CSS) to improve performance.
+
+### CSS Variables
+
+CSS variables allow you to store values in one place and reuse them throughout your stylesheet. This makes your code easier to manage, especially when working with themes, colors, spacing, fonts, and more.
+
+#### Declaring a Variable
+
+CSS variables are declared using a double hyphen (--) and are typically defined inside a :root selector so they apply globally.
+
+```css
+:root {
+  --main-color: #3498db;
+  --padding: 16px;
+  --font-stack: "Segoe UI", sans-serif;
+}
+```
+
+- :root is a pseudo-class that represents the top-level element (<html>).
+
+- Variable names are case-sensitive.
+
+#### Using Variables
+
+You use the var() function to insert the value of a variable.
+
+```css
+body {
+  font-family: var(--font-stack);
+  color: var(--main-color);
+  padding: var(--padding);
+}
+```
+
+#### Providing Fallback Values
+
+You can provide a fallback if the variable isn’t defined.
+
+```css
+color: var(--secondary-color, #333); /_ Uses #333 if --secondary-color is missing _/
+```
+
+#### Scoped Variables
+
+You can define variables locally within a specific selector. These will override global ones inside that scope.
+
+```css
+.card {
+  --main-color: tomato;
+  border: 2px solid var(--main-color);
+}
+```
+
+#### Changing Variables Dynamically
+
+One powerful feature of CSS variables is that they can be changed with JavaScript or via classes, enabling themes and dynamic styling.
+
+**Example: Theming**
+
+```css
+:root {
+  --bg: white;
+  --text: black;
+}
+
+.dark-theme {
+  --bg: black;
+  --text: white;
+}
+
+body {
+  background-color: var(--bg);
+  color: var(--text);
+}
+```
+
+Apply the `.dark-theme` class to `<body>` to switch the theme.
+
+#### Benefits of Using CSS Variables
+
+- Centralized control over styles.
+- Easier to maintain and update.
+- Enables theming and responsive design.
+- Works with JavaScript for dynamic styling.
+- Reduces repetition and errors.
+
+## Notes
+
+- CSS variables do not work in media queries or some older browsers like IE11.
+- They differ from Sass variables, which are preprocessed and don’t live in the DOM.
+
+**Real Example**
+
+```css
+:root {
+  --primary-color: #007bff;
+  --secondary-color: #6c757d;
+  --font-size: 16px;
+}
+
+h1 {
+  color: var(--primary-color);
+  font-size: calc(var(--font-size) \* 2);
+}
+
+button {
+  background-color: var(--secondary-color);
+  padding: var(--font-size);
+}
+```
+
+### Preprocessors
+
+CSS Preprocessors are scripting languages that extend CSS by adding logic and functionality that regular CSS lacks. They are compiled into standard CSS before being used in the browser.
+
+The two most popular are:
+
+- SASS (Syntactically Awesome Style Sheets)
+- LESS (Leaner Style Sheets)
+
+** Why Use a Preprocessor?**
+
+- Use variables for colors, spacing, fonts, etc.
+- Nesting to mirror HTML structure.
+- Mixins to reuse blocks of code.
+- Functions and operations for calculations.
+- Modularize code with partials and imports.
+
+#### SASS (SCSS Syntax)
+
+SASS has two syntaxes:
+
+- `.scss` (most common, CSS-like with semicolons & braces)
+- `.sass` (indentation-based, no braces or semicolons)
+
+##### Basic Features in SASS (SCSS)
+
+1.  **Variables**
+
+    ```scss
+    $primary-color: #3498db;
+    $padding: 16px;
+
+    body {
+      background-color: $primary-color;
+      padding: $padding;
+    }
+    ```
+
+2.  **Nesting**
+
+    ```scss
+    nav {
+      ul {
+        list-style: none;
+
+        li {
+          display: inline-block;
+        }
+      }
+    }
+    ```
+
+3.  **Mixins**
+
+    ```scss
+    @mixin flex-center {
+      display: flex;
+      justify-content: center;
+      align-items: center;
+    }
+
+    .container {
+      @include flex-center;
+    }
+    ```
+
+4.  **Partials and Imports:** Split your CSS into files and import them:
+
+    ```scss
+    // \_buttons.scss
+    .button {
+      padding: 10px;
+    }
+
+    // main.scss
+    @import "buttons";
+    ```
+
+    SASS now prefers @use and @forward over @import.
+
+5.  **Operators & Functions**
+
+    ```scss
+    .container {
+      width: 100% / 3;
+    }
+
+    $font-size: 16px;
+    h1 {
+      font-size: $font-size \* 2;
+    }
+    ```
+
+#### LESS
+
+LESS is very similar to SASS and has almost identical features.
+
+##### Basic Features in LESS
+
+1. **Variables**
+
+   ```less
+   @main-color: #2ecc71;
+
+   body {
+     color: @main-color;
+   }
+   ```
+
+2. **Nesting**
+   ```less
+   nav {
+     ul {
+       margin: 0;
+       li {
+         display: inline;
+       }
+     }
+   }
+   ```
+3. **Mixins**
+
+   ```less
+   .flex-center() {
+     display: flex;
+     justify-content: center;
+     align-items: center;
+   }
+
+   .container {
+     .flex-center();
+   }
+   ```
+
+4. **Functions and Operations**
+   ```less
+   @width: 10%;
+   .sidebar {
+     width: @width \* 2;
+   }
+   ```
+
+#### SASS vs LESS – Key Differences
+
+| Feature           | SASS (.scss)       | LESS             |
+| ----------------- | ------------------ | ---------------- |
+| Syntax            | SCSS / SASS        | LESS             |
+| Variables         | $variable          | @variable        |
+| Compilation       | Dart Sass (modern) | Node.js based    |
+| Popularity        | Very high          | Moderate         |
+| Advanced Features | More extensive     | Slightly limited |
+
+#### How to Use
+
+SASS: Install via npm or use tools like VS Code extensions, Webpack, or CLI:
+
+```bash
+npm install -g sass
+sass style.scss style.css
+```
+
+LESS:
+
+```bash
+npm install -g less
+lessc style.less style.css
+```
+
+Or use online compilers like SassMeister or LESS2CSS.
+
+### Performance Optimization
+
+Efficient CSS helps reduce render time, improves page speed, and ensures maintainability across large projects. Below are key strategies and examples to write high-performance CSS:
+
+1. **Use Specific and Minimal Selectors:** Avoid overly complex selectors that make the browser work harder to match elements.
+
+   **Good:**
+
+   ```css
+   .button {
+     color: white;
+   }
+   ```
+
+   **Inefficient:**
+
+   ```css
+   body div.container ul li a.button {
+     color: white;
+   }
+   ```
+
+   Deeply nested selectors increase specificity and reduce performance. Stick to classes or IDs where possible.
+
+2. **Avoid Universal Selectors and Heavy Combinators:** Universal (\*) and complex combinators like descendant (A B) can be expensive in large DOMs.
+
+   **Inefficient:**
+
+   ```css
+   - {
+     margin: 0;
+   }
+   div ul li a {
+     font-size: 14px;
+   }
+   ```
+
+   **Better:**
+
+   ```css
+   body {
+     margin: 0;
+   }
+   .nav-link {
+     font-size: 14px;
+   }
+   ```
+
+3. **Minify Your CSS:** Minified CSS reduces file size by removing spaces, comments, and unnecessary characters.
+
+   **Before:**
+
+   ```css
+   body {
+     background-color: #fff;
+     color: #000;
+   }
+   ```
+
+   **\*After (minified):**
+
+   ```css
+   body {
+     background-color: #fff;
+     color: #000;
+   }
+   ```
+
+   Use tools like:
+
+   - cssnano
+   - clean-css
+
+4. **Avoid `!important` Overuse:** `!important` breaks CSS’s natural cascading rules, making debugging hard and increasing specificity unnecessarily.
+
+   **Avoid:**
+
+   ```css
+   .button {
+     color: red !important;
+   }
+   ```
+
+   **Prefer:**
+
+   ```css
+   .btn-danger {
+     color: red;
+   }
+   ```
+
+5. **Modularize and Organize CSS:** Split CSS into modular files using preprocessors or component-based structures.
+
+- Use partials in SASS (\_buttons.scss, \_layout.scss)
+- Use component-specific styles in modern frameworks
+
+  This improves maintainability and reduces unnecessary code.
+
+6. **Remove Unused CSS:** Use tools to detect and remove CSS not being used in your HTML.
+
+- PurgeCSS
+- UnCSS
+- Chrome DevTools > Coverage Tab
+
+  This reduces your CSS bundle size drastically.
+
+7. **Use Shorthand Properties:** Shorthand properties reduce file size and increase readability.
+
+   **Use:**
+
+   ```css
+   margin: 10px 20px;
+   border: 1px solid #000;
+   ```
+
+   **Instead of:**
+
+   ```css
+   margin-top: 10px;
+   margin-right: 20px;
+   margin-bottom: 10px;
+   margin-left: 20px;
+   border-width: 1px;
+   border-style: solid;
+   border-color: #000;
+   ```
+
+8. **Use Variables for Reusability:** Use CSS variables (or SASS variables) to avoid repetition and speed up updates.
+
+   ```css
+   :root {
+     --primary: #3498db;
+   }
+
+   .button {
+     background-color: var(--primary);
+   }
+   ```
+
+9. **Leverage CSS Logical Properties:** For responsive, RTL-friendly designs, use logical properties.
+
+   **Better:**
+
+   ```css
+   padding-inline: 1rem;
+   margin-block: 2rem;
+   ```
+
+10. **Use DevTools to Audit Performance:** Chrome’s Performance and Lighthouse tabs
+
+- Firefox’s Layout and Inspector tools
+- These tools can help spot paint issues, layout thrashing, and unused styles.
+
+#### Summary
+
+Efficient CSS is clean, minimal, modular, and purposeful. You should:
+
+- Use short, specific selectors
+- Minify and modularize your code
+- Remove unused styles
+- Avoid !important
+- Use shorthand and variables
+- Audit regularly with dev tools
+
+### CSS Frameworks
+
+A CSS Framework is a pre-prepared library that makes styling easier and faster by providing ready-to-use styles, components, and utilities. They help in building responsive, maintainable, and consistent designs without writing every style from scratch.
+
+#### Bootstrap (by Twitter)
+
+##### Overview
+
+Bootstrap is a component-based CSS + JS framework that follows a mobile-first, responsive grid system. It provides predefined classes for layout, typography, buttons, forms, modals, and more.
+
+##### Key Features
+
+- Responsive 12-column grid
+- Prebuilt components (navbars, modals, cards, alerts, etc.)
+- Utility classes (margins, padding, display, etc.)
+- JavaScript plugins (tooltips, popovers, carousels)
+- Customizable via Sass variables
+
+##### Layout & Grid
+
+```html
+<div class="container">
+  <div class="row">
+    <div class="col-md-6">Column 1</div>
+    <div class="col-md-6">Column 2</div>
+  </div>
+</div>
+```
+
+- `.container` / `.container-fluid` for layout containers
+- `.row` to create rows
+- `.col-\*` for responsive columns (`col-6`, `col-sm-4`, `col-lg-8`)
+
+##### Utilities (selected)
+
+| Property | Class Example               | Description                 |
+| -------- | --------------------------- | --------------------------- |
+| Margin   | `mt-3`, `mb-2`              | Top, bottom margin spacing  |
+| Padding  | `px-4`, `py-1`              | Horizontal/vertical padding |
+| Text     | `text-center`, `text-muted` | Text alignment, muted text  |
+| Display  | `d-flex`, `d-none`          | Display utilities           |
+| Colors   | `bg-primary`, `text-danger` | Background and text colors  |
+| Buttons  | `btn`, `btn-primary`        | Styled buttons              |
+
+##### Components
+
+**Buttons:**
+
+```html
+<button class="btn btn-success">Save</button>
+```
+
+**Alerts:**
+
+```html
+<div class="alert alert-warning">Be careful!</div>
+```
+
+**Navbar:**
+
+```html
+<nav class="navbar navbar-expand-lg navbar-light bg-light">...</nav>
+```
+
+**Cards:**
+
+```html
+<div class="card">
+  <div class="card-body">Card content</div>
+</div>
+```
+
+#### Tailwind CSS
+
+##### Overview
+
+Tailwind is a utility-first CSS framework. Unlike Bootstrap, it doesn't give you components out of the box but provides low-level utility classes that let you build custom designs faster and more efficiently.
+
+##### Key Features
+
+- Utility-first approach
+- Mobile-first responsive classes
+- Customizable via tailwind.config.js
+- Built-in dark mode support
+- Supports JIT (Just-in-Time) compilation for fast builds
+
+##### Example Usage
+
+```html
+<div class="flex justify-between items-center p-4 bg-blue-500 text-white">
+  <h1 class="text-xl font-bold">Hello</h1>
+  <button class="bg-white text-blue-500 px-4 py-2 rounded">Click</button>
+</div>
+```
+
+##### Common Tailwind Utility Categories
+
+| Category    | Examples                                   | Description                        |
+| ----------- | ------------------------------------------ | ---------------------------------- |
+| Layout      | `container`, `flex`, `grid`, `w-full`      | Layout and box sizing              |
+| Spacing     | `m-4`, `p-2`, `mt-6`, `gap-4`              | Margin, padding, gaps              |
+| Typography  | `text-lg`, `font-semibold`, `leading-snug` | Font styles, weights, line heights |
+| Colors      | `bg-red-500`, `text-gray-700`              | Text and background colors         |
+| Borders     | `border`, `border-gray-200`, `rounded-lg`  | Border styles and radius           |
+| Effects     | `shadow-lg`, `opacity-75`                  | Box shadows, opacity               |
+| Transitions | `transition`, `duration-300`, `ease-in`    | Smooth transitions                 |
+| Responsive  | `md:flex`, `lg:hidden`                     | Responsive control by screen size  |
+
+##### Responsive & Dark Mode
+
+Tailwind encourages mobile-first design:
+
+```html
+<p class="text-sm md:text-lg lg:text-xl">Responsive Text</p>
+```
+
+##### Built-in dark mode:
+
+```html
+<div class="bg-white dark:bg-black text-black dark:text-white">Content</div>
+```
+
+##### Configuration File (tailwind.config.js)
+
+Tailwind is fully customizable:
+
+```js
+module.exports = {
+  theme: {
+    extend: {
+      colors: {
+        brand: "#1DA1F2",
+      },
+    },
+  },
+  darkMode: "class",
+};
+```
+
+#### Bootstrap vs Tailwind CSS
+
+| Feature       | Bootstrap                          | Tailwind CSS                 |
+| ------------- | ---------------------------------- | ---------------------------- |
+| Approach      | Component-based                    | Utility-first                |
+| Learning      | Curve Easier for beginners         | More flexible, steeper curve |
+| Customization | Requires overriding CSS            | Highly customizable          |
+| File Size     | Bigger out of the box              | Smaller with JIT and purge   |
+| Popular       | Use Quick prototypes, admin panels | Design systems, modern UIs   |
+
+#### Other CSS Frameworks to Know
+
+- **Foundation** – Responsive front-end framework by Zurb.
+- **Bulma** – Pure CSS framework based on Flexbox.
+- **Materialize** – Based on Google's Material Design.
+- **UIkit** – Lightweight and modular CSS + JS framework.
 
 ## Projects
 
@@ -1044,20 +1751,3 @@ CSS Animations are more complex than transitions and involve defining keyframes 
 - Pricing Table
 - Popup Menu
 - CSS Image Slider
-
-## Resources
-
-- [MDN Web Docs](https://developer.mozilla.org/en-US/docs/Web/CSS)
-- [CSS Tricks](https://css-tricks.com/)
-- [FreeCodeCamp CSS Tutorials](https://www.freecodecamp.org/)
-- [Can I Use](https://caniuse.com/)
-
-Happy learning!
-
-```
-
-```
-
-```
-
-```
