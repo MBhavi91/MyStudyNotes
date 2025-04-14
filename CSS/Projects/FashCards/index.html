@@ -1,0 +1,110 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Fash Cards Css</title>
+    <style>
+      body {
+        margin: 0px;
+        background: #f2f2f2;
+        display: flex;
+        flex-wrap: wrap;
+      }
+      .container {
+        margin: 10px;
+        width: 300px;
+        height: 200px;
+      }
+
+      .flashcard {
+        position: relative;
+        width: 100%;
+        height: 100%;
+        text-align: center;
+        transition: transform 0.6s;
+        transform-style: preserve-3d;
+        background: #fff;
+        box-shadow: 0 0 20px rgba(0, 0, 0, 0.1);
+      }
+
+      .front,
+      .back {
+        background-color: #ffffff;
+        position: absolute;
+        width: 100%;
+        height: 100%;
+        backface-visibility: hidden;
+        -webkit-backface-visibility: hidden;
+      }
+
+      .front p,
+      .back p {
+        position: relative;
+        top: 50%;
+        transform: translateY(-50%);
+        font-size: large;
+        margin: 0;
+      }
+
+      .back {
+        transform: rotateY(180deg);
+      }
+      .container:hover .flashcard {
+        transform: rotateY(180deg);
+      }
+    </style>
+  </head>
+  <body>
+    <div class="container">
+      <div class="flashcard">
+        <div class="front">
+          <p>Item 1</p>
+        </div>
+        <div class="back">
+          <p>Details 1</p>
+        </div>
+      </div>
+    </div>
+    <div class="container">
+      <div class="flashcard">
+        <div class="front">
+          <p>Item 2</p>
+        </div>
+        <div class="back">
+          <p>Details 2</p>
+        </div>
+      </div>
+    </div>
+    <div class="container">
+      <div class="flashcard">
+        <div class="front">
+          <p>Item 3</p>
+        </div>
+        <div class="back">
+          <p>Details 3</p>
+        </div>
+      </div>
+    </div>
+    <div class="container">
+      <div class="flashcard">
+        <div class="front">
+          <p>Item 4</p>
+        </div>
+        <div class="back">
+          <p>Details 4</p>
+        </div>
+      </div>
+    </div>
+    <div class="container">
+      <div class="flashcard">
+        <div class="front">
+          <p>Item 5</p>
+        </div>
+        <div class="back">
+          <p>Details 5</p>
+        </div>
+      </div>
+    </div>
+  </body>
+</html>

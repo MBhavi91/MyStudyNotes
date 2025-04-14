@@ -1742,7 +1742,7 @@ module.exports = {
 - [Personal Portfolio Page](../CSS/Projects/PersonalPortfolio/)
 - [Login Page](../CSS/Projects/LoginPage/)
 - Basic Landing Page
-- CSS Cards
+- [CSS Cards](../CSS/Projects/FashCards/)
 - [Hamburger Menu](../CSS/Projects/HamburgerMenu/)
 - Pricing Table
 - Popup Menu
