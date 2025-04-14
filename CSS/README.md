@@ -1745,5 +1745,5 @@ module.exports = {
 - [CSS Cards](../CSS/Projects/FashCards/)
 - [Hamburger Menu](../CSS/Projects/HamburgerMenu/)
 - Pricing Table
-- Popup Menu
+- [Popup Box](../CSS/Projects/PopupBox/)
 - CSS Image Slider

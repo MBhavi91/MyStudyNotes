@@ -1,0 +1,96 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Popup Box</title>
+    <style>
+      body {
+        margin: 0px;
+        background: #f2f2f2;
+        flex-wrap: wrap;
+      }
+      .main {
+        width: 90%;
+        height: 100vh;
+        margin: 30px;
+      }
+      .PopupBox {
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        position: fixed;
+        top: 0;
+        left: 0;
+        width: 100%;
+        height: 100%;
+        background-color: rgba(0, 0, 0, 0.5);
+        z-index: 9999;
+      }
+      .popup-content {
+        background-color: #fff;
+        padding: 20px;
+        border-radius: 5px;
+        box-shadow: 0 0 10px rgba(0, 0, 0, 0.5);
+        text-align: center;
+      }
+    </style>
+  </head>
+  <body>
+    <div class="PopupBox">
+      <div class="popup-content">
+        <h2>Popup Box</h2>
+        <p>This is a simple popup box.</p>
+        <button
+          class="close-btn"
+          onclick="document.getElementsByClassName('PopupBox')[0].style.display = 'none';"
+        >
+          Close
+        </button>
+      </div>
+    </div>
+    <div class="main">
+      <button
+        class="btn"
+        onclick="document.getElementsByClassName('PopupBox')[0].style.display = '';"
+      >
+        Open Popup Box
+      </button>
+      <p>
+        Lorem ipsum dolor sit amet consectetur adipisicing elit. Nostrum
+        necessitatibus minus optio sapiente, excepturi commodi voluptatum
+        ducimus iure maiores, autem reprehenderit facilis minima id ipsam nemo
+        tempore? Ducimus, expedita nihil! Voluptatem ut id soluta. Quo sit
+        explicabo at nobis modi rerum. Consequatur nobis officia corporis
+        deserunt earum iste pariatur, ratione laudantium tempore a, vitae enim
+        eligendi perferendis accusamus obcaecati ea! Nostrum alias assumenda
+        quasi quaerat dolorem similique eius ab in laborum atque facere
+        inventore repellendus, ea dignissimos ad eaque libero, nihil excepturi
+        odio tenetur optio. Repudiandae recusandae eveniet sequi? Adipisci? Nisi
+        provident voluptas, odit repellendus delectus, laboriosam illo harum
+        perspiciatis cum tempora possimus natus sit est obcaecati molestiae
+        debitis dolorum? Asperiores quisquam delectus, cupiditate fugit ducimus
+        nemo vel ipsum dolores! Corrupti tempora minus omnis nostrum, enim, ad
+        sequi ut dolores odit, voluptatum maxime delectus consequuntur adipisci
+        iusto! Eius, aperiam exercitationem repellat dignissimos, eum ab beatae
+        eaque doloremque nihil dolores vitae! Labore voluptatem alias distinctio
+        aut cum rerum, molestiae voluptas suscipit provident saepe cupiditate?
+        Delectus atque error ab nihil? Quibusdam, laborum iste! Quaerat ad
+        recusandae quod animi reiciendis earum beatae at. Suscipit, non et
+        assumenda, fugiat eaque ad quae amet rem tempore unde inventore
+        obcaecati recusandae voluptatum vitae perspiciatis. At repudiandae
+        libero aliquid distinctio quibusdam dolores exercitationem sint ut,
+        necessitatibus ex! Voluptatum nisi quidem maiores voluptatibus voluptas
+        odio? Dolores sapiente in laborum animi cum! Accusantium obcaecati
+        tempora asperiores recusandae et aliquam, illo veniam perferendis.
+        Similique nobis impedit, aliquam odio ipsum dolorem? Veniam aliquid
+        accusantium commodi vitae vel, nam nihil velit numquam dolore facere, id
+        quisquam ea. Excepturi saepe non ratione, velit vel minima, iure
+        consectetur doloribus possimus rem quasi laudantium. Cum? Totam id nisi,
+        enim aspernatur architecto quos doloremque voluptate laboriosam tempora
+        consectetur iure nemo reprehenderit ducimus molestias nulla magni odio
+        iusto amet ipsam similique corrupti optio facilis natus eaque. Dicta.
+      </p>
+    </div>
+  </body>
+</html>
