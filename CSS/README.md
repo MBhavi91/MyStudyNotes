@@ -1741,9 +1741,7 @@ module.exports = {
 
 - [Personal Portfolio Page](../CSS/Projects/PersonalPortfolio/)
 - [Login Page](../CSS/Projects/LoginPage/)
-- Basic Landing Page
 - [CSS Cards](../CSS/Projects/FashCards/)
 - [Hamburger Menu](../CSS/Projects/HamburgerMenu/)
-- Pricing Table
 - [Popup Box](../CSS/Projects/PopupBox/)
-- CSS Image Slider
+- Basic Landing Page
