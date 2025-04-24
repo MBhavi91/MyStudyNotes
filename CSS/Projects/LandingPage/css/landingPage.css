@@ -1,0 +1,637 @@
+:root
+{
+    --primary-color:#5533ff;
+    --secondary-color: #25ddf5;
+    --text-color: white;
+    --text-color-secondary: #5e629c;
+    --font-family: 'Arial', sans-serif;
+    --footer-color: #180e29;
+    --color-green: #3ecf8e;
+}
+body
+{
+    margin: 0;
+}
+header 
+{
+    display: flex;
+    margin: 0;
+    justify-content: space-between;
+    background: linear-gradient(95deg, var(--primary-color) 40%, var(--secondary-color) 100%);
+    color: var(--text-color);
+    position: fixed;
+    width: 100%;
+    top: 0;
+    z-index: 10;
+}
+
+header .logo
+{
+    padding: 0.8rem 5rem;
+}
+header nav
+{
+    display: flex;
+    list-style: none;
+    padding: 0.5rem 4rem;
+}
+header nav a
+{
+    padding: 2rem 0.7rem;
+    text-decoration: none;
+    color: var(--text-color);
+    cursor: pointer;
+    font-weight: 900;
+    font-size: larger;
+}
+header nav a:hover
+{
+    background: linear-gradient(180deg, var(--primary-color) 40%, var(--secondary-color) 100%);
+    /* background: var(--text-color); */
+    color: var(--text-color);
+    transition: 0.3s;
+    border-radius: 5%;
+    height: 0rem;
+}
+
+.buttonBlue
+{
+    background: #7fc9fb;
+    color: var(--text-color);
+    border: none;
+    border-radius: 5%;
+    font-weight: 900;
+    text-decoration: none;
+    cursor: pointer;
+    box-shadow: 0px 8px 9px 0px rgba(96, 94, 94, 0.17);
+    padding: 0rem 2rem;
+    margin: 1rem 0;
+    height: 50px;
+}
+.buttonBlue:hover
+{
+    box-shadow: 0px 0px 0px 0px rgba(96, 94, 94, 0.17);
+    background: var(--text-color);
+    color: var(--primary-color);
+    transition: 0.3s;
+}
+
+.buttonWhite
+{
+    background: white;
+    color: var(--color-green);
+    border: 0.05rem solid var(--color-green);
+    border-radius: 5%;
+    font-weight: 900;
+    text-decoration: none;
+    cursor: pointer;
+    box-shadow: 0px 0px 0px 0px rgba(96, 94, 94, 0.17);
+    padding: 0rem 2rem;
+    margin: 1rem 0;
+    height: 50px;
+}
+.buttonWhite:hover
+{
+    box-shadow: 0px 8px 9px 0px rgba(96, 94, 94, 0.17);
+    background: var(--text-color);
+    color: black;
+    transition: 0.3s;
+}
+#home
+{
+   
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: 5rem 5rem;
+    color: var(--text-color);
+    height: 100vh;
+}
+.overlay
+{
+    position: absolute;
+    top: -10%;
+    left: 0;
+    width: 100%;
+    height: 110%;
+    background: linear-gradient(90deg, var(--primary-color) 40%, var(--secondary-color) 100%);
+    transform: skewY(-12deg);
+    z-index: -1;
+}
+#home img
+{
+    width: 50%;
+    height: 90%;
+}
+.container h1
+{
+    font-size: 2.5rem;
+    margin: 0 0 1rem 0;
+}
+.container p
+{
+    font-size: 1.2rem;
+    margin: 0 0 1rem 0;
+}
+.businessInfo
+{
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: 2rem;
+}
+.businessInfo img
+{
+    width: 30rem;
+    height: 28rem;
+    padding: 0 5rem;
+}
+.businessInfo h3
+{
+    font-size: 2.4rem;
+    color: black;
+}
+.businessInfo p
+{
+    font-size: 1.3rem;
+    color: var(--text-color-secondary);
+}
+.Infosection
+{
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    padding: 1rem 5rem;
+}
+.info
+{
+    background: var(--text-color);
+    color: var(--text-color-secondary);
+    margin: 1rem;
+    border: 0.05rem solid var(--text-color-secondary);
+    text-align: center;
+}
+.info:hover
+{
+    border: 0.05rem solid var(--color-green);
+    box-shadow: 0px 10px 10px 10px rgba(96, 94, 94, 0.17);
+    transition: 0.5s;
+}
+.info img
+{
+    width: 5rem;
+    height: 5rem;
+    margin: 5rem 0 2rem 0;
+    border-radius: 10%;
+    padding: 0.5rem;
+}
+.info h3
+{
+    font-size: 1.5rem;
+    margin: 0 0 0.5rem 0;
+    color: black;
+}
+.info p
+{
+    font-size: 1.2rem;
+    color: var(--text-color-secondary);
+    width: 70%;
+    margin: 1rem auto 3rem auto;
+}
+.servicesInfo
+{
+    display: grid;
+    grid-template-columns: repeat(2, 1fr);
+    grid-template-rows: repeat(3, 1fr);
+    grid-column-gap: 0px;
+    grid-row-gap: 0px;
+    padding: 3rem 6rem;
+}
+.service
+{
+    display: flex;
+    background: var(--text-color);
+    color: var(--text-color-secondary);
+    padding: 2rem;
+    text-align: left;
+}
+.service:hover
+{
+    box-shadow: 0px 10px 10px 10px rgba(96, 94, 94, 0.17);
+    transition: 0.5s;
+    z-index: 1;
+}
+.service img
+{
+    width: 4.5rem;
+    height: 4.5rem;
+    margin-right: 1rem;
+    border-radius: 10%;
+    padding: 0.5rem;
+}
+.service h3
+{
+    font-size: 1.5rem;
+    margin: 0 0 0.5rem 0;
+    color: black;
+}
+.service p
+{
+    font-size: 1.2rem;
+    color: var(--text-color-secondary);
+}
+.showcaseInfo
+{
+    height: 65vh;
+    background: linear-gradient(90deg, var(--primary-color) 40%, var(--secondary-color) 100%);
+    background-color: var(--primary-color);
+    color: var(--text-color);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    flex-direction: column;
+    margin-top: 6rem;
+}
+.recentWorkslids
+{
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    margin-top: -4rem;
+}
+.recentWorkslids img
+{
+    width: 12rem;
+    height: 12rem;
+}
+.showcaseInfo p 
+{
+    font-size: 1.2rem;
+    width: 50%;
+}
+#team, #blog, #contact, #pricing, #services
+{
+    position: relative;
+    text-align: center;
+    margin-top: 6rem;
+}
+h2
+{
+    font-size: 3rem;
+    margin: 0 0 0.5rem 0;
+}
+#team > p, #blog > p, #contact > p, #pricing > p, #services > p
+{
+    font-size: 1.2rem;
+    color: var(--text-color-secondary);
+    width: 50%;
+    margin: auto;
+}
+.pricingPlans
+{
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    padding: 1rem 2.5rem;
+}
+.plan
+{
+    background: var(--text-color);
+    color: var(--text-color-secondary);
+    margin: 1rem;
+    width: 30.3%;
+    border: 0.05rem solid var(--text-color-secondary);
+    text-align: center;
+}
+.plan:hover
+{
+    border: 0.05rem solid var(--color-green);
+    box-shadow: 0px 10px 10px 10px rgba(96, 94, 94, 0.17);
+    transition: 0.5s;
+}
+.plan > h3
+{
+    font-size: 1.8rem;
+    color: black;
+}
+.price
+{
+    font-size: 2.5rem;
+    color: var(--color-green);
+    margin: 0.5rem 0;
+}
+.plan ul
+{
+    list-style: none;
+    padding: 1rem 0;
+}
+.plan ul li
+{
+    padding: 0.5rem 0;
+    color: var(--text-color-secondary);
+    font-size: 1.2rem;
+}
+
+.teamMembers
+{
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    padding: 1rem 2.5rem;
+}
+.member
+{
+    background: var(--text-color);
+    color: var(--text-color-secondary);
+    margin: 1rem;
+    width: 30.3%;
+    border: 0.05rem solid var(--text-color-secondary);
+    text-align: center;
+}
+.member:hover
+{
+    border: 0.05rem solid var(--color-green);
+    box-shadow: 0px 10px 10px 10px rgba(96, 94, 94, 0.17);
+    transition: 0.5s;
+}
+.member > h3
+{
+    font-size: 1.3rem;
+    color: black;
+}
+.member > p
+{
+    margin-top: -1rem;
+}
+.socialMedia
+{
+    align-items: center;
+    margin: -1.5rem 0 0 0rem;
+}
+.socialMedia img
+{
+    width: 1rem;
+    height: 1rem;
+    background-color: white;
+    padding: 0.5rem;
+    border-radius: 50%;
+    border: 0.05rem solid var(--color-green);
+}
+.blogs
+{
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    padding: 1rem 2.5rem;
+}
+.blog
+{
+    background: var(--text-color);
+    color: var(--text-color-secondary);
+    margin: 1rem;
+    width: 30.3%;
+    border: 0.05rem solid var(--text-color-secondary);
+    text-align: left;
+}
+.blog:hover
+{
+    border: 0.05rem solid var(--color-green);
+    box-shadow: 0px 10px 10px 10px rgba(96, 94, 94, 0.17);
+    transition: 0.5s;
+}
+.blog h3
+{
+    font-size: 1.3rem;
+    margin: 0.5rem 0;
+    color: black;
+    padding: 1rem;
+}
+.blog p
+{
+    font-size: 1rem;
+    color: var(--text-color-secondary);
+    margin: auto;
+    padding: 1rem;
+}
+.blog .blogReadTime
+{
+    color: var(--color-green);
+    padding-top: 0.4rem;
+}
+.blogInfo
+{
+    display: flex;
+    justify-content: space-between; 
+    align-items: start;
+    padding: 0rem 1rem;
+}
+.blogInfo img
+{
+    width: 14px;
+    margin-right: 0.4rem;
+}
+.blogInfo p
+{
+    margin: 0;
+}
+
+.contactus 
+{
+    display: flex;
+    justify-content: space-between;
+    margin: 2.5rem 5rem;
+}
+table tr td
+{
+    padding: 0.5rem 1.5rem;
+    text-align: left;
+}
+.contactus input
+{
+    padding: 0.5rem 1rem;
+    border: 0.05rem solid var(--text-color-secondary);
+    border-radius: 1rem;
+    margin: 0.5rem;
+    font-size: 1rem;
+    width: 100%;
+    height: 2rem;
+    border-radius: 2%;
+    color: var(--text-color-secondary);
+}
+.contactus textarea
+{
+    padding: 0.5rem 1rem;
+    border: 0.05rem solid var(--text-color-secondary);
+    border-radius: 1rem;
+    margin: 0.5rem;
+    font-size: 1rem;
+    width: 100%;
+    height: 5rem;
+    border-radius: 2%;
+    color: var(--text-color-secondary);
+}
+.buttonGreen
+{
+    background: var(--color-green);
+    color: var(--text-color);
+    border: none;
+    border-radius: 5%;
+    font-weight: 900;
+    text-decoration: none;
+    cursor: pointer;
+    box-shadow: 0px 8px 9px 0px rgba(96, 94, 94, 0.17);
+    padding: 0rem 2rem;
+    margin: 1rem 0;
+    height: 50px;
+    font-size: 1.2rem;
+}
+.buttonGreen:hover
+{
+    box-shadow: 0px 0px 0px 0px rgba(96, 94, 94, 0.17);
+    transition: 0.3s;
+}
+footer
+{
+    background: var(--footer-color);
+    color: var(--text-color);
+    padding: 2rem 0;
+    position: relative;
+    bottom: 0;
+    width: 100%;
+}
+footer h3
+{
+    font-size: 1.5rem;
+}
+footer .contents
+{
+    display: grid;
+    grid-template-columns: repeat(6, 1fr);
+    grid-template-rows: 1fr;
+    grid-column-gap: 0px;
+    grid-row-gap: 0px;
+    padding: 0 2rem;
+}
+footer .logo
+{
+    grid-area: 1 / 1 / 2 / 3;
+    margin: 5rem 3.5rem;
+}
+footer ul
+{
+    list-style: none;
+    padding: 0;
+    margin: 0;
+    color: var(--text-color);
+    text-decoration: none;
+}
+footer ul li a
+{
+    text-decoration: none;
+    color: var(--text-color);
+    font-size: 1.1rem;
+}
+footer ul li
+{
+    padding: 0.5rem 0;
+}
+footer ul li a:hover
+{
+    color: var(--color-green);
+    transition: 0.3s;
+    padding-left: 0.3rem;
+}
+.subScribe
+{
+    grid-area: 1 / 6 / 2 / 7;
+    line-height: 2rem;
+    font-size: 1.07rem;
+}
+.subScribe input[type="email"]
+{
+    padding: 0.54rem 1rem;
+    border: 0.05rem solid var(--text-color);
+    margin-right: -0.2rem;
+    font-size: 1rem;
+    width: 50%;
+    background-color: var(--footer-color);
+    border-radius: 2%;
+    color: var(--text-color);
+}
+.subScribe button
+{
+    background-color: var(--color-green);
+    border: none;
+    color: var(--text-color);
+    padding: 0.66rem 1.5rem;
+    margin-left: -0.2rem;
+    margin-top: -2rem;
+    border-radius: 2%;
+}
+.line
+{
+    width: 100%;
+    height: 1rem;
+    border-bottom: 1px solid #a0a6ad;
+    position: relative;
+}
+.copyright
+{
+    text-align: center;
+    font-size: 1.2rem;
+    margin-top: 2rem;
+    color: var(--text-color);
+}
+.copyright span
+{
+   color: var(--color-green);
+}
+#loginBox {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background-color: rgba(0, 0, 0, 0.5);
+    z-index: 9999;
+    display: none;
+  }
+.loginInfo {
+    background-color: #fff;
+    padding: 20px;
+    border-radius: 5px;
+    box-shadow: 0 0 10px rgba(0, 0, 0, 0.5);
+    text-align: center;
+    width: 30%;
+    height: 70%;
+  }
+.loginInfo h2 {
+    margin: 3rem 0 2rem 0;
+    color: var(--text-color-secondary)
+  }
+.loginInfo input[type="email"],
+.loginInfo input[type="password"] {
+    width: 80%;
+    padding: 10px;
+    margin-bottom: 10px;
+    border: 1px solid #ccc;
+    border-radius: 5px;
+  }
+.loginInfo button {
+    background-color: var(--color-green);
+    color: #fff;
+    padding: 10px 20px;
+    border: none;
+    border-radius: 5px;
+    cursor: pointer;
+  }
+  .loginInfo a{
+    color: var(--color-green);
+    text-decoration: none;
+  }
+.loginInfo a:hover{
+    color: var(--text-color-secondary);
+  }
