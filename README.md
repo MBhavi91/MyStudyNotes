@@ -35,37 +35,24 @@ Below is a comprehensive roadmap to becoming a full-stack software engineer. To 
 ### Full Stack
 
 - [HTML](./HTML)
-- CSS
-  - Checkpoint - Static Webpages
+- [CSS](./CSS/)
 - JavaScript
-  - Checkpoint - Interactivity
 - Npm
-  - Checkpoint - External Packages
 - [Git](./Github/)
 - GitHub
-  - Checkpoint - Collaborative work
 - Tailwind
 - React
-  - Checkpoint - Frontend Apps
 - Node.js _(Backend start from here)_
-  - Checkpoint - CLI Apps
 - PostgreSQL
-  - Checkpoint - Simple CRUD Apps
 - Restful APIs
 - JWT Auth
 - Redis
-  - Checkpoint - Complete App
 - Linux basics _(DevOps start from here)_
 - Basic AWS Service
-  - Checkpoint - Deployment
 - Monit
-  - Checkpoint - Monitoring
 - GitHub Actions
-  - Checkpoint - CD/CI
 - Ansible
-  - Checkpoint - Automation
 - Terraform
-  - Checkpoint - Infrastructure
 
 ### Frontend
 
@@ -81,7 +68,7 @@ Below is a comprehensive roadmap to becoming a full-stack software engineer. To 
   - Forms and validations
   - Accessibility
   - SEO basics
-- CSS
+- [CSS](./CSS/)
   - Learn the basics
   - Making layouts
   - Responsive design
@@ -527,13 +514,130 @@ Below is a comprehensive roadmap to becoming a full-stack software engineer. To 
 
 ## Skill-Based Roadmap
 
+### JavaScript
+
+- Introduction to Javascript
+  - What is Javascript
+  - History of Javascript
+  - Javascript Version
+  - How to run Javascript
+- All About Variables
+  - Variable Declaration
+    - var, let, const
+  - Hoisting
+  - Variable Naming Rules
+  - Variable Scopes
+    - Block, Function, Global
+- DataTypes
+  - Primitive Types
+    - string
+    - undefined
+    - nuber
+    - bigint
+    - boolean
+    - null
+    - symbol
+  - Object
+    - Object Prototypes
+    - Prototypal Inheritance
+    - Built-in Objects
+  - typeof operator
+- Type Casting
+  - Type Conversion vs Coercion
+  - Implicit Type Casting
+  - Explicit Type Casting
+- Data Structure
+  - Keyed Collections
+    - Map
+    - Weak Map
+    - Set
+    - Weak Set
+  - Structured Data
+    - JSON
+  - Indexed Collections
+    - Typed Arrays
+    - Arrays
+- Equality Comparisons
+  - Value Comparison Operators
+    - ==, ===, Object.is
+  - Equality Algorithms
+    - isLooselyEqual
+    - isStrictlyEqual
+    - SameValueZero
+    - SameValue
+- Loops and Iterations
+  - for
+  - do...while
+  - while
+  - break / continue
+  - for...of loop
+  - for...in loop
+- Control Flow
+  - COnditional Statements
+    - if...else
+    - Switch
+  - Exceptional Handling
+    - throw statement
+    - try/catch/finally
+    - Error objects
+- Expressions & Operators
+  - Conditional Operators
+  - Comma Operators
+  - Unary Operators
+  - Assignment Operators
+  - Comparison Operators
+  - Arithmetic Operators
+  - Bitwise Operators
+  - Logical Operators
+  - BigInt Operators
+  - String Operators
+- Functions
+  - Functional Parameters
+    - Default Param
+    - Rest
+  - Arrow Function
+  - IIFEs
+  - arguments objecr
+  - Scope & Function Stack
+  - Built-in Functions
+- DOM APIs
+- Strict Mode
+- Using(this) keyword
+  - in a method
+  - in a function
+  - using it alone
+  - in event handlers
+  - in arrow functions
+  - Function Borrowing
+  - Explicit Binding
+    - call, apply, bind
+- Asynchronous Javascript
+  - Event Loop
+  - Call backs
+    - Call back hell
+  - Promise
+    - Async/await
+  - setTimeout
+  - setInterval
+- Working with APIs
+- Classes
+- Iterators & Generators
+- Modules in javascript
+  - CommonJS
+  - ESM
+- Memory Management
+  - Memory lifecycle
+  - Garbage Collection
+- Using browser DevTools
+  - Debugging Issues
+  - Debugging Memory Leaks
+  - Debugging Performance
+
 ### Git and GitHub
 
 ### React
 
 ### Asp.net Core
-
-### JavaScript
 
 ### TypeScript
 
