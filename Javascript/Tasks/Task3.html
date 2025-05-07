@@ -1,0 +1,56 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Document</title>
+    <script>
+      //Task 1:
+      console.log(typeof "JavaScript");
+      console.log(typeof 42);
+      console.log(typeof true);
+      console.log(typeof undefined);
+      console.log(typeof null);
+      console.log(typeof 1234567890123456789012345678901234567890n);
+      console.log(typeof Symbol("sym"));
+      console.log(typeof {});
+
+      //Task 2:
+      let cars = {
+        make: "Toyota",
+        model: "Camry",
+        year: 2020,
+        start: function () {
+          console.log("Engine started");
+        },
+      };
+      let car = Object.create(cars);
+      car.start();
+
+      //Task 3:
+      let animal = {
+        canEat: true,
+      };
+
+      let dog = Object.create(animal);
+      dog.barks = true;
+
+      console.log("dog can eat: " + dog.canEat); // Output: dog can eat: true
+      console.log("dog barks: " + dog.barks); // Output: dog barks: true
+
+      //Task 4:
+      function checkType(value) {
+        console.log("The type of the value is: " + typeof value);
+      }
+      checkType("JavaScript");
+      checkType(42);
+      checkType(true);
+      checkType(undefined);
+      checkType(null);
+      checkType(1234567890123456789012345678901234567890n);
+      checkType(Symbol("sym"));
+      checkType({});
+    </script>
+  </head>
+  <body></body>
+</html>

@@ -1,0 +1,92 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Inventory Table</title>
+    <style>
+      table {
+        width: 100%;
+        border-collapse: collapse;
+        margin-top: 20px;
+      }
+      th,
+      td {
+        border: 1px solid #ddd;
+        padding: 8px;
+        text-align: left;
+      }
+      th {
+        background-color: #f4f4f4;
+      }
+      select {
+        margin-bottom: 10px;
+        padding: 5px;
+      }
+    </style>
+  </head>
+  <body>
+    <h1>Inventory Table</h1>
+    <label for="categoryFilter">Filter by Category:</label>
+    <select id="categoryFilter" onchange="filterTable()">
+      <option value="all">All</option>
+      <option value="Electronics">Electronics</option>
+      <option value="Furniture">Furniture</option>
+      <option value="Groceries">Groceries</option>
+    </select>
+
+    <table id="inventoryTable">
+      <thead>
+        <tr>
+          <th>Category</th>
+          <th>Item</th>
+          <th>Quantity</th>
+        </tr>
+      </thead>
+      <tbody>
+        <tr>
+          <td>Electronics</td>
+          <td>Smartphone</td>
+          <td>10</td>
+        </tr>
+        <tr>
+          <td>Furniture</td>
+          <td>Chair</td>
+          <td>15</td>
+        </tr>
+        <tr>
+          <td>Groceries</td>
+          <td>Apples</td>
+          <td>50</td>
+        </tr>
+        <tr>
+          <td>Electronics</td>
+          <td>Laptop</td>
+          <td>5</td>
+        </tr>
+        <tr>
+          <td>Furniture</td>
+          <td>Table</td>
+          <td>8</td>
+        </tr>
+      </tbody>
+    </table>
+
+    <script>
+      function filterTable() {
+        const filter = document.getElementById("categoryFilter").value;
+        const table = document.getElementById("inventoryTable");
+        const rows = table.getElementsByTagName("tr");
+
+        for (let i = 1; i < rows.length; i++) {
+          const categoryCell = rows[i].getElementsByTagName("td")[0];
+          if (categoryCell) {
+            const category = categoryCell.textContent || categoryCell.innerText;
+            rows[i].style.display =
+              filter === "all" || category === filter ? "" : "none";
+          }
+        }
+      }
+    </script>
+  </body>
+</html>
