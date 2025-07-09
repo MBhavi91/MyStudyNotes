@@ -1,0 +1,35 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Document</title>
+    <script>
+      //Task 1:
+      console.log("10" + 1); // 101
+      console.log("10" - 1); // 9
+      console.log(true + false); // 1
+      console.log(null == undefined); // true
+      console.log(Number("abc")); // NaN
+
+      //Task 2:
+      console.log(Number("123"));
+      console.log(String("false"));
+      console.log(Boolean(0));
+
+      //Task 3:
+      function typeCheckFunction(value) {
+        console.log(
+          "The input is of type: " +
+            typeof value +
+            " and its value is: " +
+            value
+        );
+      }
+
+      typeCheckFunction(123); // number
+      typeCheckFunction("Hello"); // string
+    </script>
+  </head>
+  <body></body>
+</html>

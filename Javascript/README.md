@@ -443,7 +443,303 @@ Symbol("sym");
 
 ## Type Casting
 
+Type casting (or type conversion) refers to changing a value from one data type to another. In JavaScript, this happens in two ways:
+
+### Type Conversion vs Type Coercion
+
+| Aspect            | Type Conversion (Explicit) | Type Coercion (Implicit)        |
+| ----------------- | -------------------------- | ------------------------------- |
+| Who initiates it? | Developer (manual)         | JavaScript engine               |
+| How is it done?   | Using functions/methods    | Automatically during operations |
+| Example           | `Number("123")`            | `"5" \* 2 → 10`                 |
+
+### Implicit Type Casting (Coercion)
+
+JavaScript automatically converts values from one type to another when needed, especially in operations like addition or comparison.
+
+**Examples:**
+
+```javascript
+console.log("5" + 1); // "51" → Number is coerced to String
+console.log("5" - 1); // 4 → String is coerced to Number
+console.log(true + 1); // 2 → true is coerced to 1
+console.log(null + 1); // 1 → null is coerced to 0
+console.log(undefined + 1); // NaN
+```
+
+#### Coercion Rules (Simplified):
+
+- String + anything = string (except with `Symbol`)
+- Boolean to number: `true → 1`, `false → 0`
+- `null → 0`, `undefined → NaN`
+- Objects → primitives via `.valueOf()` or `.toString()`
+
+### Explicit Type Casting (Conversion)
+
+You manually convert a value from one type to another using functions or constructors.
+
+1. **To Number**
+
+```javascript
+Number("123"); // 123
+parseInt("123px"); // 123
+parseFloat("3.14"); // 3.14
++"42"; // 42 (unary plus)
+```
+
+2. **To String**
+
+```javascript
+String(123); // "123"
+(123).toString(); // "123"
+true.toString(); // "true"
+```
+
+3. **To Boolean**
+
+```javascript
+Boolean(0); // false
+Boolean(""); // false
+Boolean("hello"); // true
+!!"JavaScript"; // true (double negation trick)
+```
+
+#### Common Pitfalls
+
+| Code                | Output              | Why?                                 |
+| ------------------- | ------------------- | ------------------------------------ |
+| `"5" + 1`           | `"51"`              | String concatenation                 |
+| `"5" - 1`           | `4`                 | Coerces "5" to number                |
+| `null == undefined` | `true`              | Loose equality treats them the same  |
+| `[] + {}`           | `"[object Object]"` | `[]` coerced to `""`, `{}` to string |
+| `true + false`      | `1`                 | true → 1, false → 0                  |
+
+### Task 4:
+
+1. Predict Output: What will the following log?
+
+```javascript
+console.log("10" + 1);
+console.log("10" - 1);
+console.log(true + false);
+console.log(null == undefined);
+console.log(Number("abc"));
+```
+
+2. Convert Manually: Write code that
+
+- Converts `"123"` to a number
+- Converts `false` to a string
+- Converts `0` to a boolean
+
+3. Type Check Function: Create a function that takes any input and returns:
+
+```javascript
+"The input is of type: string and its value is: hello";
+```
+
 ## Data Structure
+
+Data structures help organize and store data efficiently. JavaScript offers built-in structures suited for different needs.
+
+### Keyed Collections
+
+Keyed collections store data in pairs (key → value). They allow fast access, insertion, and deletion.
+
+1. **Map**
+
+- Stores key-value pairs.
+- Keys can be of any type (including objects).
+- Maintains insertion order.
+
+```javascript
+const map = new Map();
+map.set("name", "Alice");
+map.set(42, "Answer");
+map.set({ id: 1 }, "Object Key");
+
+console.log(map.get("name")); // Alice
+console.log(map.size); // 3
+```
+
+Use Map when:
+
+- You need ordered entries.
+- Keys are of various types.
+
+2. **WeakMap**
+
+- Similar to Map, but:
+  - Only allows objects as keys.
+  - Keys are weakly referenced (not prevented from garbage collection).
+- Not iterable.
+
+```javascript
+let obj = {};
+let weakMap = new WeakMap();
+weakMap.set(obj, "Secret");
+
+console.log(weakMap.get(obj)); // Secret
+obj = null; // Entry is removed automatically
+```
+
+Use WeakMap for:
+
+- Private data storage per object.
+- Memory-efficient designs (like DOM node metadata).
+
+3. **Set**
+
+- Stores unique values.
+- Can hold any type of value.
+- Maintains insertion order.
+
+```javascript
+const set = new Set([1, 2, 2, 3]);
+set.add(4);
+
+console.log(set.has(2)); // true
+console.log(set.size); // 4
+```
+
+Use Set when:
+
+- You need unique elements.
+- You want fast existence checking.
+
+4. **WeakSet**
+
+- Stores objects only.
+- Each object appears only once.
+- Weakly referenced (non-preventative for garbage collection).
+- Not iterable.
+
+```javascript
+let person = { name: "Eve" };
+const weakSet = new WeakSet();
+weakSet.add(person);
+
+console.log(weakSet.has(person)); // true
+person = null; // Garbage collected
+```
+
+Use WeakSet for:
+
+- Tracking object presence privately.
+- Memory-sensitive lists.
+
+### Structured Data
+
+1. **JSON (JavaScript Object Notation)**
+
+- Lightweight format for storing and exchanging data.
+- Easy to convert to and from JavaScript objects.
+
+```javascript
+const obj = { name: "Alice", age: 30 };
+const jsonStr = JSON.stringify(obj); // To JSON
+console.log(jsonStr); // {"name":"Alice","age":30}
+
+const parsedObj = JSON.parse(jsonStr); // From JSON
+console.log(parsedObj.name); // Alice
+```
+
+Use JSON for:
+
+- Sending/receiving data from a server.
+- Saving structured data (e.g., in localStorage).
+
+### Indexed Collections
+
+Collections that use numerical indexes to access items.
+
+1. **Arrays**
+
+- Standard list-like objects.
+- Can hold any type of element.
+
+```javascript
+const fruits = ["apple", "banana", "cherry"];
+console.log(fruits[1]); // banana
+fruits.push("date");
+console.log(fruits.length); // 4
+```
+
+Use Arrays for:
+
+- Lists, queues, stacks.
+- General-purpose collection handling.
+
+2. **Typed Arrays**
+
+- Provide a way to work with binary data.
+- Represented by views (e.g., `Int8Array`, `Float32Array`) over `ArrayBuffer`.
+
+```javascript
+let buffer = new ArrayBuffer(4); // 4 bytes
+let intView = new Int32Array(buffer);
+intView[0] = 42;
+
+console.log(intView[0]); // 42
+```
+
+Use Typed Arrays when:
+
+- Working with binary streams, files, or performance-critical tasks (e.g., WebGL, audio).
+
+### Task 5:
+
+1. Map Practice
+
+- Create a Map to store the capital cities of countries
+- Add at least 3 countries with their capitals
+- Retrieve and print one capital
+- Bonus: Try looping over the Map and printing all countries and capitals.
+
+2. WeakMap Practice
+
+- Create an object 'user'
+- Add it as a key in a WeakMap with some secret info
+- Retrieve the secret info
+- Bonus: Set user = null and test what happens.
+
+3. Set Practice
+
+- Create a Set with some numbers, including duplicates
+- Add a new number, remove one number, and check existence of a number
+- Bonus: Convert a Set to an array.
+
+4. WeakSet Practice
+
+- Create two object variables
+- Add them to a WeakSet
+- Check if one of them exists in the WeakSet
+
+5. JSON Practice
+
+- Create a JavaScript object with your profile info (name, age, skills)
+- Convert it to a JSON string
+- Then parse it back to an object and log one property
+- Bonus: Save the JSON string to localStorage (in browser).
+
+6. Array Practice
+
+- Create an array of your 5 favorite movies
+- Add a new movie, remove one, and sort the array alphabetically
+- Bonus: Use a loop to print all movies in uppercase.
+
+7. Typed Array Practice
+
+- Create a buffer and a typed array (Int16Array or Float32Array)
+- Store a few values and print them
+- Bonus: Try modifying values in the buffer directly.
+
+8. Challenge Task
+
+- Create an array of objects, each representing a student (name, score)
+- Use a Map to store each student's name as key and their score as value
+- Convert the array to JSON and back
+- Find the average score
 
 ## Equality Comparisons
 

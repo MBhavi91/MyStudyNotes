@@ -1,0 +1,71 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Document</title>
+    <script>
+      //Task 1
+      const country = new Map();
+      country.set("USA", "Washington, D.C.");
+      country.set("Canada", "Ottawa");
+      country.set("Mexico", "Mexico City");
+
+      console.log("USA capital is : " + country.get("USA")); // Washington, D.C.
+
+      for (const [key, value] of country) {
+        console.log("Contry: " + key + " : Its capital: " + value);
+      }
+
+      //Task 2
+      let user = {};
+      let weakMap = new WeakMap();
+      weakMap.set(user, "User data");
+      console.log(weakMap.get(user)); // User data
+      user = null;
+
+      //Task 3
+      let set = new Set([1, 2, 3, 4, 5, 1, 3]);
+      set.add(6);
+      set.delete(2);
+      console.log(set.has(4));
+      set.forEach((value) => console.log(value));
+
+      //Task 4
+      let obj1 = {};
+      let obj2 = {};
+      let weakSet = new WeakSet([obj1, obj2]);
+      console.log(weakSet.has(obj1)); // true
+
+      //Task 5
+      let profile = {
+        name: "John",
+        age: 30,
+        city: "New York",
+      };
+      const jsonString = JSON.stringify(profile);
+      console.log(jsonString);
+
+      const parsedProfile = JSON.parse(jsonString);
+      console.log(parsedProfile.name);
+
+      //Task 6
+      let arrMovies = [
+        "Inception",
+        "Interstellar",
+        "Dunkirk",
+        "Tenet",
+        "The Prestige",
+      ];
+      arrMovies.push("Memento");
+      arrMovies.splice(1, 1);
+      arrMovies.sort();
+      arrMovies.forEach((movie) => {
+        console.log(movie);
+      });
+
+      //Task 7
+    </script>
+  </head>
+  <body></body>
+</html>
