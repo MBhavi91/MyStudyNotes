@@ -26,13 +26,273 @@
 
 ### What is System Design?
 
-- **Definition, goals, and importance**
-- **Examples of system design problems**
+**System Design** is the process of defining the architecture, components, modules, interfaces, and data for a system to satisfy specified requirements. It is a high-level approach used in both software and hardware domains, but it's especially critical in software engineering when building large, scalable, and complex systems like web applications, cloud services, or distributed systems.
+
+System design bridges the gap between a conceptual idea and a practical, functioning system. It is both a creative and analytical discipline, combining problem-solving, engineering principles, and architectural patterns.
+
+It involves making decisions about:
+
+- **What** components the system will have
+- **How** those components will interact.
+- **Where** data will be stored and processed.
+- **How** users or other systems will interact with it.
+
+This process ensures the system fulfills **both functional requirements** (what the system should do) and **non-functional requirements** (performance, scalability, security, etc.).
+
+### Goals of System Design
+
+The primary goals of system design are to:
+
+- **Define architecture:** Determine how different parts of the system will interact.
+- **Ensure scalability:** The system should handle increasing loads efficiently.
+- **Achieve reliability:** The system should function correctly under expected and unexpected conditions.
+- **Maintainability:** Systems should be easy to modify, update, or debug.
+- **Efficiency:** Optimal use of resources such as memory, CPU, and bandwidth.
+- **Security:** Safeguarding data and preventing unauthorized access.
+- **User-centric design:** Ensuring good user experience and usability.
+
+### Importance of System Design
+
+System design is crucial for several reasons:
+
+- **Foundation of Software Development:** A well-thought-out design reduces errors and improves the quality of the final product.
+- **Scalability and Flexibility:** Good design anticipates future growth and changes.
+- **Team Collaboration:** Provides a shared understanding and blueprint for all stakeholders.
+- **Cost Efficiency:** Early detection of flaws through design saves time and development costs.
+- **Performance Optimization:** It helps identify potential bottlenecks and address them during the design phase.
+
+### Types of System Design
+
+1. **High-Level Design (HLD):**
+
+   - Focuses on system architecture
+   - Identifies modules, data flow, and technologies
+   - Defines how components interact
+
+2. **Low-Level Design (LLD):**
+
+   - Detailed internal logic of components
+   - Class diagrams, method signatures, database schemas
+   - Often used by developers for implementation
+
+### Key Components of System Design
+
+1. **Scalability**
+   - Can the system handle increased load?
+   - Horizontal scaling (more machines) vs. vertical scaling (more power to a machine)
+2. **Performance**
+   - Latency: Time taken to respond.
+   - Throughput: Requests handled per second.
+3. **Availability**
+   - How often is the system up and running?
+   - 99.9% (three 9s) = 8.76 hours downtime/year
+4. **Reliability**
+   - Can the system work correctly even with failures?
+   - Redundancy, failover mechanisms, backups
+5. **Maintainability**
+   - How easy is it to modify, update, or fix the system?
+6. **Security**
+   - Protecting data and services from unauthorized access
+7. **Consistency**
+   - Ensuring data remains accurate across distributed systems (CAP theorem comes into play here)
+
+System design is not just about drawing boxes and arrows—it's about creating systems that are **robust, scalable, secure, and efficient.** Whether you’re building a small feature or architecting an entire platform, system design is a **critical skill** that shapes how software functions in the real world.
 
 ### Types of Design
 
-- **High-Level Design (HLD):** system components, architecture diagrams
-- **Low-Level Design (LLD):** classes, data structures, algorithms
+#### High-Level Design (HLD)
+
+High-Level Design (HLD) outlines the **system architecture** — how the components interact, what technologies are used, and how the system is structured.
+
+It's like the **blueprint of a house** before it's built: rooms, floors, plumbing lines — but not down to the color of the walls.
+
+**Goals of HLD**
+
+- Define **scope** of the system
+- Visualize **system architecture**
+- Identify **modules, services, and interactions**
+- Choose **technology stack**
+- Show **data flow and control flow**
+- Support **non-functional requirements:** scalability, performance, availability, etc.
+
+**Key Components of HLD**
+
+| Component                | Explanation                                         | Example                                      |
+| ------------------------ | --------------------------------------------------- | -------------------------------------------- |
+| System Architecture      | Overall layout: monolith, microservices, serverless | Microservices with API Gateway               |
+| Modules/Components       | Subsystems of the application                       | Auth Service, Product Catalog, Cart Service  |
+| Data Flow Diagrams (DFD) | How data moves across modules                       | User → API → DB                              |
+| Technology Stack         | Frameworks, databases, message queues               | React, Node.js, PostgreSQL, Kafka            |
+| API Contracts            | What APIs are exposed, input/output                 | `/login`, `/createOrder`                     |
+| Third-party Integrations | External systems like Stripe, Firebase, Twilio      | SMS with Twilio                              |
+| Security Design          | Authentication, authorization, encryption           | JWT, OAuth 2.0, HTTPS                        |
+| Deployment Architecture  | Servers, load balancers, CDNs                       | AWS EC2 + NGINX + CloudFront                 |
+| Caching Strategy         | Improves performance and latency                    | Redis for session & frequently accessed data |
+| Scalability              | Strategy Horizontal scaling, stateless services     | Kubernetes-based auto-scaling                |
+| Monitoring & Logging     | Tools for observability                             | Prometheus, Grafana, ELK stack               |
+
+**Tools for HLD**
+
+- **Diagramming:** Draw.io, Lucidchart, Excalidraw, Miro
+- **Documentation:** Notion, Confluence, Google Docs
+- **Architecture Modeling:** C4 Model, ArchiMate, UML
+
+**When to Use HLD**
+
+- At the start of system design
+- During architectural discussions or reviews
+- For project proposals and planning
+- In system design interviews
+
+**HLD Example: Ride-Sharing App (like Uber)**
+
+- **Users:** Riders & Drivers
+- **Components:**
+  - Rider App
+  - Driver App
+  - Matching Engine
+  - Payment Gateway
+  - Notification Service
+- **Data Flow:**
+  - Rider → Request Ride → Matching Engine → Driver Assigned
+- **Architecture:**
+  - Microservices + REST APIs
+  - Real-time location tracking using WebSockets or MQTT
+- **Database:**
+  - PostgreSQL (Transactional Data)
+  - Redis (Session & Cache)
+  - MongoDB (Geospatial Data)
+
+#### Low-Level Design (LLD)
+
+Low-Level Design (LLD) zooms in on the **implementation details** of each component. It defines **classes, methods, data structures, algorithms, database schema**, and how everything is built internally.
+
+It’s like the **interior design of your house:** wall colors, furniture layout, plumbing details.
+
+**Goals of LLD**
+
+- Break HLD components into **concrete class structures**
+- Design **business logic**, workflows, and algorithms
+- Define **method signatures** and data flow between functions
+- Ensure **code-level consistency** and reusability
+- Identify **bottlenecks** and optimize for efficiency
+
+**Key Components of LLD**
+
+| Component            | Description                          | Example                                 |
+| -------------------- | ------------------------------------ | --------------------------------------- |
+| Class Diagrams       | Object-oriented layout of entities   | `User`, `Ride`, `Driver` classes        |
+| Interfaces/Contracts | Interaction points between modules   | `UserRepository`, `RideService`         |
+| Database Schema      | Detailed table design with relations | Tables: `users`, `rides`, `payments`    |
+| Algorithms           | Logic for core features              | Dijkstra’s for shortest route           |
+| Data Structures      | To support performance and use-case  | Min-Heap, HashMap, Trie                 |
+| Sequence Diagrams    | Object interactions over time        | Request Ride → Assign Driver → Notify   |
+| Error Handling       | Logic Fault tolerance                | Retry, circuit breakers, fallback logic |
+| Concurrency Handling | Thread safety, locks, queues         | Mutex, semaphores in ride-matching      |
+| Design Patterns      | Reusable design techniques           | Singleton, Factory, Observer, Strategy  |
+
+**Tools for LLD**
+
+- **UML Tools:** Visual Paradigm, StarUML, PlantUML
+- **ERD Tools:** dbdiagram.io, SQLDBM, QuickDBD
+- **Code Modeling:** Source code IDEs, Lucidchart, IntelliJ UML Plugin
+
+**When to Use LLD**
+
+- During actual coding phase
+- While reviewing system behavior and dependencies
+- In code reviews or design discussions
+- In LLD coding interviews
+
+**LLD Example: URL Shortener**
+
+- **Class Design (Python-style):**
+
+```python
+class URLShortener:
+def **init**(self):
+self.short_to_long = {}
+self.long_to_short = {}
+
+    def shorten(self, long_url: str) -> str:
+        # Logic to shorten and store
+        ...
+
+    def expand(self, short_url: str) -> str:
+        # Logic to retrieve original
+        ...
+```
+
+- **Database Table:**
+
+```sql
+CREATE TABLE url_map (
+id SERIAL PRIMARY KEY,
+short_url VARCHAR(10) UNIQUE,
+long_url TEXT,
+created_at TIMESTAMP
+);
+```
+
+- **Algorithm:**
+  - Base62 encoding
+  - Hashing + collision check
+  - Expiry cleanup logic
+
+**HLD vs LLD – Complete Comparison Table**
+|Feature| HLD| LLD|
+|---- | ---- | --- |
+|Focus| Architecture and design overview| Internal logic and code structure|
+|Scope| Modules, systems, data flow, APIs| Classes, methods, algorithms, DB schema|
+|Abstraction| High-level (black box view)| Low-level (white box view)|
+|Tools Used| Diagrams, flowcharts, architecture docs| UML, class diagrams, pseudo-code|
+|Team| Architects, senior devs| Developers, engineers|
+|Deliverables| Architecture doc, system diagram, tech stack| Class diagram, DB design, detailed logic|
+|Time of Use| Before implementation | During implementation|
+|Example| Output Architecture diagram of an e-commerce system| Class structure of CartService|
+
+#### Best Practices
+
+**HLD Best Practices**
+
+- Modularize the system: define clear service boundaries
+- Ensure scalability and fault-tolerance are covered
+- Use layered architecture (client, service, database, cache)
+- Include data flow diagrams for clarity
+- Document assumptions, decisions, and trade-offs
+
+**LLD Best Practices**
+
+- Follow SOLID principles (OOP)
+- Use design patterns where appropriate
+- Keep class responsibilities single and focused
+- Choose efficient data structures
+- Write testable and modular code
+
+### Common Interview Problems Using HLD & LLD
+
+**HLD-Oriented:**
+
+- Design YouTube
+- Design WhatsApp
+- Design Instagram Stories
+- Design Uber
+
+**LLD-Oriented:**
+
+- Design a Parking Lot
+- Design Elevator System
+- Design Tic-Tac-Toe
+- Design File System
+- Design Rate Limiter
+
+#### Summary
+
+| Category   | HLD                                            | LLD                               |
+| ---------- | ---------------------------------------------- | --------------------------------- |
+| Defines    | What system will do and how it will look       | How it will be implemented        |
+| Involves   | Architecture, components, APIs                 | Classes, methods, logic           |
+| Helps With | Planning, budgeting, stakeholder communication | Development, testing, refactoring |
 
 ### Requirements
 
