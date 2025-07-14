@@ -1,8 +1,17 @@
-`# Ultimate System Design Detailed Outline
+# Ultimate System Design Detailed Outline
 
 ## Table of Contents
 
 1. [Foundations of System Design & Fundamentals](#1-foundations-of-system-design--fundamentals)
+
+   1.1. [What is System Design?](#what-is-system-design)
+
+   1.2. [Types of Design](#types-of-design)
+
+   1.3. [Requirements](#requirements)
+
+   1.4 [CAP Theorem](#cap-theorem)
+
 2. [Networking Basics & OS Concepts](#2-networking-basics--os-concepts)
 3. [Design Patterns and Architectures](#3-design-patterns-and-architectures)
 4. [Data Modeling and Storage Systems](#4-data-modeling-and-storage-systems)
@@ -39,7 +48,7 @@ It involves making decisions about:
 
 This process ensures the system fulfills **both functional requirements** (what the system should do) and **non-functional requirements** (performance, scalability, security, etc.).
 
-### Goals of System Design
+#### Goals of System Design
 
 The primary goals of system design are to:
 
@@ -51,7 +60,7 @@ The primary goals of system design are to:
 - **Security:** Safeguarding data and preventing unauthorized access.
 - **User-centric design:** Ensuring good user experience and usability.
 
-### Importance of System Design
+#### Importance of System Design
 
 System design is crucial for several reasons:
 
@@ -61,7 +70,7 @@ System design is crucial for several reasons:
 - **Cost Efficiency:** Early detection of flaws through design saves time and development costs.
 - **Performance Optimization:** It helps identify potential bottlenecks and address them during the design phase.
 
-### Types of System Design
+#### Types of System Design
 
 1. **High-Level Design (HLD):**
 
@@ -75,7 +84,7 @@ System design is crucial for several reasons:
    - Class diagrams, method signatures, database schemas
    - Often used by developers for implementation
 
-### Key Components of System Design
+#### Key Components of System Design
 
 1. **Scalability**
    - Can the system handle increased load?
@@ -269,7 +278,7 @@ created_at TIMESTAMP
 - Choose efficient data structures
 - Write testable and modular code
 
-### Common Interview Problems Using HLD & LLD
+#### Common Interview Problems Using HLD & LLD
 
 **HLD-Oriented:**
 
