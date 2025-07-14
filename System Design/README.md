@@ -1,4 +1,4 @@
-# Ultimate System Design Detailed Outline
+`# Ultimate System Design Detailed Outline
 
 ## Table of Contents
 
@@ -296,13 +296,450 @@ created_at TIMESTAMP
 
 ### Requirements
 
-- **Functional requirements:** features, user actions
-- **Non-functional requirements:** performance, scalability, security
+#### What Are Functional Requirements?
+
+**Functional requirements** define what a system is supposed to do. These are the specific **features, behaviors, and capabilities** of the system. They describe the **functions** that a system must perform to satisfy user and business needs.
+
+Think of functional requirements as the **"actions"** of the system — the tasks the system must be able to handle.
+
+**Characteristics of Functional Requirements:**
+
+- Directly tied to **user expectations** and business logic
+- Described as **use cases, user stories, or features**
+- Usually start with "The system shall..." or "The user should be able to..."
+- Can be clearly tested — either it works or it doesn’t
+
+**Categories of Functional Requirements**
+
+These are typically grouped based on what the system must do to serve its purpose. Here are the common categories:
+
+1. **User Interactions**
+   - What actions the user can perform in the system.
+   - Includes login, registration, profile management, etc.
+   - **Example:** Users should be able to sign in using Google or email.
+2. **Business Rules**
+   - Logical rules that dictate system behavior in specific conditions.
+   - These reflect company policies or domain-specific rules.
+   - **Example:** A user cannot withdraw more than their current balance.
+3. **Data Management**
+   - How data is created, read, updated, and deleted (CRUD).
+   - Involves database operations, input/output handling, validations.
+   - **Example:** The system must allow an admin to update user roles.
+4. **System Workflows**
+   - Series of steps or processes the system must perform.
+   - Often part of complex multi-step features.
+   - **Example:** A user places an order → payment is confirmed → order is processed → delivery is scheduled.
+5. **Authorization and Roles**
+   - Who can do what — defining different user roles and access controls.
+     **Example:** Only admin users can delete posts.
+
+**Examples:**
+
+Imagine you are building an online banking app:
+
+- The user should be able to log in with a username and password.
+- The system should allow the user to check their account balance.
+- The system must support money transfers between accounts.
+- Users should receive a confirmation email after every transaction.
+- The system should support multiple user roles, such as admin and customer.
+
+These are all **functional** because they describe **specific things the system must do.**
+
+#### What Are Non-Functional Requirements?
+
+**Non-functional requirements** describe **how** the system performs its functions. They are not about specific tasks but about the **quality attributes** of the system. These requirements define **standards, performance benchmarks, and constraints** for how the system should behave.
+
+In simple terms, they answer questions like:
+
+- How fast should it work?
+- How many users should it handle?
+- How secure should it be?
+- How easy should it be to use or maintain?
+
+**Characteristics of Non-Functional Requirements:**
+
+- They are often **measurable** but not always black-and-white (e.g., “fast” can be subjective unless quantified).
+- They ensure the system is **usable, scalable, reliable, and secure.**
+- They are usually **cross-cutting concerns** that apply to the whole system, not just a single feature.
+
+**Examples:**
+
+Let’s use the same online banking app:
+
+- The system should respond to user requests within **2 seconds.**
+- The app should handle **up to 100,000 concurrent users.**
+- The system should have **99.99% uptime** (availability).
+- User data must be **encrypted in transit and at rest.**
+- The system should be **compatible with both mobile and desktop browsers.**
+- The backend should be **designed for easy future maintenance and upgrades.**
+- There should be **automatic failover** in case a server goes down.
+
+These are non-functional because they describe the quality, behavior, and constraints of the system, not specific actions.
+
+**Categories of Non-Functional Requirements**
+These define the **quality, efficiency,** and **usability** of the system. Here's a breakdown:
+
+1. **Performance**
+
+- How fast the system responds to requests.
+- Includes latency, throughput, response time.
+- **Example:** All API calls should respond in under 300ms.
+
+2. **Scalability**
+
+- System's ability to handle increased load (users, data, traffic).
+- Can be vertical (bigger servers) or horizontal (more servers).
+- **Example:** The system should support up to 1 million users during peak hours.
+
+3. **Availability**
+
+- How much time the system is operational and accessible.
+- Measured in uptime (e.g., 99.99%).
+- **Example:** The service must be available 24/7 with a maximum downtime of 5 minutes per month.
+
+4. **Security**
+
+- Protection of data, preventing unauthorized access, and secure communication.
+- Includes encryption, authentication, authorization.
+- **Example:** All sensitive data should be encrypted using AES-256.
+
+5. **Maintainability**
+
+- How easy it is to update, debug, and upgrade the system.
+- Related to modularity and clean code practices.
+- **Example:** The system architecture must support hotfix deployment without downtime.
+
+6. **Usability**
+
+- How easy and intuitive the system is to use.
+- Includes user interface design and user experience.
+- **Example:** First-time users should be able to navigate the app without external help.
+
+7. **Portability**
+
+- The ability of the system to operate on various platforms and environments.
+- **Example:** The web application should work on all major browsers and devices.
+
+8. **Reliability and Fault Tolerance**
+
+- The system’s ability to recover from crashes or errors and continue working.
+- **Example:** In case of server failure, traffic should be rerouted to a backup server within 10 seconds.
+
+9. **Capacity**
+
+- Resource limits
+- **Example:** Support 100K active sessions
+
+10. **Compliance**
+
+- Legal and standards
+- **Example:** GDPR, HIPAA, PCI-DSS adherence
+
+#### In System Design Interviews
+
+**You Should Ask:**
+
+**Functional**
+
+- What are the core features the system must support?
+- What workflows or user interactions are expected?
+
+**Non-Functional**
+
+- What’s the expected traffic (QPS)?
+- Is high availability required?
+- What latency is acceptable?
+- Are there security/compliance constraints?
+
+#### How They Influence Architecture
+
+| Requirement  | Impact on Design                           |
+| ------------ | ------------------------------------------ |
+| Performance  | Caching, CDNs, async processing            |
+| Scalability  | Load balancing, partitioning, auto-scaling |
+| Security     | Auth, encryption, role-based access        |
+| Availability | Redundancy, failover, retries              |
+| Usability    | UI/UX simplicity, A/B testing              |
+| Functional   | Microservices for modular features         |
+
+#### Why These Requirements Are Important in System Design
+
+1. **Clear Understanding of Scope**
+
+- Separating functional and non-functional requirements helps define the **scope and boundaries** of the system. You know what it must do and how well it must do it.
+
+2. **Design Decisions**
+
+- Functional requirements help define **core architecture and modules.**
+- Non-functional requirements influence **technology stack, database choices, caching, load balancing,** etc.
+
+3. **Prioritization & Planning**
+
+- You can prioritize core features (functional) and gradually improve quality (non-functional) — but you know both are coming.
+
+4. **Testing & Quality Assurance**
+
+- Functional requirements are tested with **unit, integration, and system tests.**
+- Non-functional requirements need **performance testing, load testing, security audits,** etc.
+
+5. **Improved User Experience**
+
+- Users won’t just judge your product by what it can do, but by how reliably, quickly, and securely it does it.
+
+6. **Failure Prevention**
+
+- Ignoring non-functional requirements is a common reason for system failures during real-world usage (e.g., slow performance under load).
+
+**Example:**
+
+Let’s say you’re building a food delivery app.
+
+**Functional requirements:**
+
+- Users can browse restaurants, place orders, track delivery, and pay online.
+- Delivery partners can see incoming orders and accept or reject them.
+
+**Non-functional requirements:**
+
+- The app must support **real-time tracking** with less than **3 seconds of delay.**
+- The system must be **available 24/7 with minimal downtime.**
+- The app should work on **Android, iOS, and web browsers.**
+- Payments must be processed using **secure encryption protocols.**
+- The backend should be **scalable** to handle traffic surges during lunch/dinner hours.
 
 ### CAP Theorem
 
-- **Explanation of Consistency, Availability, Partition tolerance**
-- **Trade-offs and scenarios for each**
+#### What is the CAP Theorem?
+
+The **CAP Theorem**, proposed by Eric Brewer in 2000 (and later formally proven by Gilbert and Lynch), stands for:
+
+- C: Consistency
+- A: Availability
+- P: Partition Tolerance
+
+It states that **in a distributed system, you can only achieve two out of the three guarantees at any given time**, but not all three simultaneously. This doesn't mean you can’t strive for all three, but in the presence of a network partition (which is inevitable in distributed systems), you must sacrifice either **Consistency or Availability.**
+
+1. **C — Consistency**
+
+**Definition:** Every read receives the most recent write or an error.
+
+**Explanation:** Consistency means that all nodes in a distributed system see the same data at the same time. If a system is consistent, once a write is made to a data item, any subsequent read (from any node) will return that written value or nothing until it’s available. This is similar to the consistency model of traditional relational databases (like SQL databases), where ACID properties ensure that all clients see the same view of the data.
+
+**Example:** If you update your profile picture on Facebook, and your friend sees the old picture when they view your profile from another region, that system is not consistent.
+
+**Tradeoff:** To maintain consistency across nodes, the system might delay responses or reject requests (to make sure all replicas are updated before serving the data).
+
+2. **A — Availability**
+
+**Definition:** Every request (read or write) receives a (non-error) response, without guarantee that it contains the most recent write.
+
+**Explanation:** Availability ensures that every request to the system gets a response—even if it’s not the most up-to-date. The system always remains operational. This is important for user-facing applications where downtime is unacceptable.
+
+**Example:** Imagine a shopping cart system where you add an item. Even if one data center goes down, another still responds and allows you to keep shopping, even if your cart isn’t fully synced.
+
+**Tradeoff:** To maintain high availability, the system may serve stale data (i.e., not the latest value). It sacrifices accuracy for uptime.
+
+3. **P — Partition Tolerance**
+
+**Definition:** The system continues to operate despite arbitrary message loss or failure of part of the system (i.e., a network partition).
+
+**Explanation:** Partition tolerance means that even when communication between parts of the system fails (e.g., one data center can’t talk to another), the system continues to function. In distributed systems, network partitions are not just possible—they’re inevitable, so Partition Tolerance is a must. That means CAP really becomes a trade-off between C and A.
+
+**Example:** If a network split happens between two data centers, and clients are connected to both, the system must decide: should it remain available (sacrifice consistency) or stay consistent (sacrifice availability)?
+
+#### Combination Scenarios in CAP
+
+Since you can't have all three in the event of a partition, systems generally choose one of these:
+
+1. **CP (Consistency + Partition Tolerance)**
+
+   - System stays consistent and can tolerate partitioning, but might become unavailable during failure.
+
+   - Prioritizes correctness over availability.
+
+   - **Examples:** MongoDB (in strict mode), HBase, Redis (when used as a CP store)
+
+2. **AP (Availability + Partition Tolerance)**
+
+   - System stays available and tolerates partitions, but may return stale or inconsistent data.
+   - Prioritizes responsiveness over accuracy.
+   - **Examples:** Cassandra, Couchbase, DynamoDB
+
+3. **CA (Consistency + Availability)**
+   - System is consistent and available only if no partitions exist (not tolerating network failures).
+   - This is mostly theoretical in distributed systems since partitions will eventually occur.
+   - More common in single-node or tightly-coupled systems, like SQL databases running on a single server.
+
+#### Importance of CAP Theorem
+
+CAP Theorem is vital because it **forces engineers to make conscious decisions** about tradeoffs in their system design. It helps you:
+
+- Decide how to handle failures (availability vs correctness)
+- Design for global scale (distributed across regions)
+- Set realistic expectations for system behavior under stress or failure
+- Prioritize user experience or data accuracy, depending on the domain
+
+Without understanding CAP, you may build systems that behave unpredictably or fail silently under real-world conditions.
+
+#### Why Do We Use CAP Theorem?
+
+- To **design robust distributed systems** that are fault-tolerant.
+- To **understand trade-offs** when choosing databases, communication protocols, or replication strategies.
+- To guide **architectural decisions** when building systems that span across multiple servers, data centers, or geographies.
+- To **define SLAs and user experience expectations** for consistency and availability.
+
+#### Advantages of CAP-aware Design
+
+- Builds **resilient, fault-tolerant systems**
+- Improves **scalability and flexibility**
+- Enables **fine-tuned user experience** (based on priority: data accuracy vs uptime)
+- Helps you pick the right **tool or database** for the job
+
+#### Disadvantages
+
+- Forces you to **sacrifice** at least one desirable property
+- May introduce **complexity** in understanding and handling data staleness or availability
+- Increases **engineering effort** (to manually handle scenarios like eventual consistency)
+- Can create **user confusion** if the system doesn’t behave predictably (especially in AP systems)
+
+#### When to Use Which Part?
+
+**Choose CP:**
+
+- When **data correctness is critical**
+- Domains: **Banking, inventory systems, financial ledgers**
+- You’re okay with some downtime, but not incorrect data
+
+**Choose AP:**
+
+- When **high availability is critical**
+- Domains: **Social media, messaging systems, caching layers**
+- You’re okay with stale or eventually consistent data
+
+**Choose CA:**
+
+- In **centralized systems** where network partitioning isn’t a concern
+- Domains: **Internal enterprise apps, single-node apps**
+- You don't need partition tolerance (not common in distributed web-scale apps)
+
+#### How CAP Solves System Design Problems
+
+| Problem                           | CAP Component             | How it helps                                                   |
+| --------------------------------- | ------------------------- | -------------------------------------------------------------- |
+| Data loss during network failure  | P                         | System keeps working even if nodes can’t communicate           |
+| System hangs under load           | A                         | Prioritizes responsiveness even under stress                   |
+| Stale reads                       | C (or lack thereof in AP) | Shows need for stronger consistency if stale reads are harmful |
+| Multiple conflicting writes       | C                         | Ensures only one correct version of data                       |
+| Global replication across regions | P                         | Handles partitions due to geographic latency/failure           |
+
+#### Where to Use CAP in System Design?
+
+- **Database choice:** NoSQL vs SQL? Choose based on CAP priorities
+- **Replication strategy:** Synchronous vs asynchronous
+- **Consistency model:** Strong vs eventual consistency
+- **Service architecture:** Microservices vs monoliths
+- **Designing APIs:** Idempotent operations, retry strategies
+- **Load balancers / failover strategies:** Which nodes to prefer when some are inconsistent?
+
+#### How to Choose in System Design
+
+Let’s go step by step:
+
+- **Step 1: Accept Partition Tolerance**
+
+Unless you're building **a single-machine system, Partition Tolerance (P)** is a must.
+So the real choice becomes:
+**CA**, **CP**, or **AP** — but **you must give up one** during a partition.
+
+- **Step 2: Understand Your System’s Requirements**
+  Ask these questions:
+  |Question|If YES|If NO|
+  |----|----|----|
+  |Do users expect strict correctness (like banking)?|Prioritize Consistency|Consider Availability|
+  |Can the system tolerate stale data temporarily?|Favor Availability|Choose Consistency|
+  |Is global uptime more important than perfect accuracy?|Choose Availability|Lean toward Consistency|
+  |Is the system user-facing with real-time requirements?|Lean toward Availability|Prefer Consistency|
+  |Do you expect frequent or unpredictable network partitions?|You must design for Partition Tolerance||
+
+- **Step 3: Match Use Case to a CAP Combination**
+
+Here’s how common combinations apply:
+
+1. **CP (Consistency + Partition Tolerance)**
+
+   - Sacrifices: Availability
+   - Guarantee: Always returns the correct data, even if some nodes are unreachable
+   - Might reject requests or time out during partitions
+
+   **When to Use:**
+
+   - Banking systems
+   - E-commerce checkouts
+   - Inventory systems
+   - Payment gateways
+
+   **Examples:**
+
+   - HBase
+   - MongoDB (with majority write concern)
+   - Google BigTable
+
+2. **AP (Availability + Partition Tolerance)**
+
+   - Sacrifices: Consistency
+   - Guarantee: System remains responsive, even during partition
+   - Data may be stale, but system stays up
+
+   **When to Use:**
+
+   - Social networks
+   - Shopping catalogs
+   - Messaging platforms
+   - Content delivery (e.g., YouTube comments)
+
+   **Examples:**
+
+   - Couchbase
+   - Cassandra
+   - DynamoDB
+
+3. **CA (Consistency + Availability)**
+
+   - Sacrifices: Partition Tolerance
+   - Only works in systems with no partition risk (e.g., single-node systems or tightly coupled clusters)
+
+   **When to Use:**
+
+   - Internal tools in a reliable LAN environment
+   - Systems without horizontal scaling
+
+   **Examples:**
+
+   - Traditional relational databases (PostgreSQL, MySQL) on a single node
+
+#### Real-World Use Case Mapping
+
+| Use Case               | CAP Choice | Why?                                               |
+| ---------------------- | ---------- | -------------------------------------------------- |
+| Online banking         | CP         | Data must be consistent                            |
+| Shopping cart          | CP or AP   | Depends on how critical the cart state is          |
+| Social media feeds     | AP         | Freshness is less important than availability      |
+| Real-time chat         | AP         | Stale messages okay temporarily                    |
+| Airline ticket booking | CP         | Must avoid overbooking                             |
+| DNS resolution         | AP         | Always available, even if not perfectly up-to-date |
+
+#### Rule of Thumb
+
+When in doubt: **Design for AP, and use domain-level strategies to approximate consistency.**
+This is how Amazon, Facebook, and Netflix scale reliably at the cost of temporarily inconsistent data—**then resolve it later.**
+
+#### Tips for Choosing CAP in Design
+
+- For critical workflows: Use **CP systems **(or CP-mode of an AP system)
+- For high read throughput: Use **AP systems** with **eventual consistency**
+- For UX-heavy systems: Use **AP** but ensure **read-your-writes** for better perception
+- For write-heavy systems: Watch for **conflict resolution needs in AP** systems
+- For hybrid apps: Use **microservices with different CAP** profiles per service
 
 ### PACELC Theorem
 
@@ -848,3 +1285,4 @@ created_at TIMESTAMP
 - **Draw Architecture Diagrams**
 
 - **Discuss Real-world Examples**
+  `
