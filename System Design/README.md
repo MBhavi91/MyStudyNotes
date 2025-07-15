@@ -752,22 +752,887 @@ This is how Amazon, Facebook, and Netflix scale reliably at the cost of temporar
 
 ### PACELC Theorem
 
-- **Extends CAP with latency and consistency trade-offs**
+#### What is PACELC Theorem?
+
+While the CAP theorem helps us understand trade-offs in distributed systems during network partitions, it doesn't tell us what happens when the system is functioning normally (no partitions).
+
+To solve this, Daniel Abadi introduced the PACELC Theorem in 2010 as an extension of CAP, making it more comprehensive and practical for real-world distributed systems.
+
+**PACELC stands for:**
+
+If there is a Partition (P), then a system must choose between Availability (A) and Consistency (C); Else (E), when the system is running normally, it must choose between Latency (L) and Consistency (C).
+
+#### Breaking Down Each Letter
+
+**1.** **Partition (P)**
+
+- **Definition:** A network failure that prevents some nodes in the system from communicating with others.
+- **Importance:** Partitions are inevitable in distributed systems due to network unreliability, data center outages, or geographic latency. PACELC starts with the same assumption as CAP: during a partition, you must trade off between Availability and Consistency.
+
+**2.** **Availability (A)**
+
+- **Definition:** The system continues to serve requests and respond to clients during a partition—even if it means returning outdated or incomplete data.
+- **Explanation:** Highly available systems prioritize uptime and responsiveness, even if that means compromising on accuracy. During a partition, choosing Availability may mean some users see stale or inconsistent data.
+
+**3.** **Consistency (C)**
+
+- **Definition:** All users and nodes see the same, most recent version of data—whether during a partition or in normal operations.
+- **Explanation:** Prioritizing consistency means ensuring that all replicas are up-to-date before serving reads or writes. It avoids anomalies like conflicting writes or stale reads.
+
+**4.** **Else (E)**
+
+This part introduces a new dimension: what does the system prioritize when there is no network partition?  
+CAP doesn't consider this case at all, and that's PACELC's major upgrade.
+
+**5.** **Latency (L)**
+
+- **Definition:** The time it takes for the system to respond to a request.
+- **Explanation:** Even without a partition, synchronizing all nodes can increase response time. Systems that prioritize latency will respond quickly, even if they sacrifice immediate consistency.
+
+**6.** **Consistency (again)**
+
+Here, it refers to the trade-off made in normal conditions. Some systems still choose to delay responses to guarantee consistency—even when the network is healthy.
+
+#### Common PACELC Trade-off Patterns
+
+Here's how systems are categorized based on PACELC:
+
+| System                   | PACELC Model                    | Meaning                                                                            |
+| ------------------------ | ------------------------------- | ---------------------------------------------------------------------------------- |
+| Cassandra                | PA/EL                           | During partition: favors Availability. Else: favors Latency (eventual consistency) |
+| Amazon DynamoDB          | PA/EL                           | Same as Cassandra                                                                  |
+| MongoDB                  | PC/EC                           | During partition: favors Consistency. Else: favors Consistency                     |
+| HBase                    | PC/EC                           | Strong consistency at all times                                                    |
+| Cosmos DB (configurable) | Can be tuned to different modes | -                                                                                  |
+
+#### Why Is PACELC Important?
+
+The CAP theorem only applies when there's a network partition, but most of the time, distributed systems are not under partition. PACELC provides a more complete model by considering both failure and non-failure conditions:
+
+- Helps understand trade-offs beyond just fault scenarios
+- Useful for tuning distributed systems for performance or correctness
+- Helps choose a database or architecture that aligns with business priorities
+- Encourages designing systems that adapt to both normal and abnormal states
+
+In other words, **CAP is a subset of PACELC**.
+
+#### Why Do We Use PACELC?
+
+PACELC is used in:
+
+- Distributed database design: Helps pick replication strategies and consistency models
+- Cloud systems: Guides decisions around geo-replication, latency targets, and failover behavior
+- Microservice design: Determines how services communicate, synchronize state, and maintain data correctness
+- Service Level Agreements (SLAs): Helps define uptime vs correctness guarantees
+- Choosing between NoSQL vs NewSQL databases
+
+PACELC helps teams engineer for reality, where failures may happen—but also where performance and latency still matter during normal operation.
+
+#### Advantages of Using PACELC
+
+- More realistic model than CAP
+- Addresses latency vs consistency trade-offs even in healthy systems
+- Encourages fine-tuned design for distributed applications
+- Allows informed decision-making when choosing systems like Cassandra, MongoDB, or CosmosDB
+- Gives architects a way to balance user experience vs system accuracy
+
+#### Disadvantages of PACELC
+
+- Complexity: More nuanced than CAP, harder for beginners to grasp
+- Requires deep understanding of system internals to apply effectively
+- May lead to over-optimization or premature tuning
+- Difficult to implement dynamic switching between modes (e.g., EL to EC based on load)
+
+#### When to Use Each Trade-Off?
+
+#### PA/EL (Availability during Partition, Low Latency otherwise)
+
+- **Use when:** User experience (speed and uptime) is more critical than strict consistency
+- **Domains:** Social networks, real-time messaging apps, product search, recommendation engines
+- **Examples:** Cassandra, DynamoDB
+
+#### PC/EC (Consistency during Partition, Strong Consistency always)
+
+- **Use when:** Data correctness is critical at all times, even if slower
+- **Domains:** Banking, inventory management, e-commerce order processing, medical systems
+- **Examples:** MongoDB (with write concern), HBase, Spanner
+
+#### PA/EC or PC/EL
+
+These are hybrid or configurable modes, where the trade-off depends on the use case  
+Systems like Cosmos DB allow configurable levels of consistency (from eventual to strong)
+
+#### What System Design Problems Does PACELC Help Solve?
+
+| Problem                           | PACELC Factor | How It Helps                                                           |
+| --------------------------------- | ------------- | ---------------------------------------------------------------------- |
+| Slow response in normal operation | L             | Optimize for Latency over Consistency                                  |
+| Inconsistent data under failure   | P & C         | Choose Consistency over Availability during partitions                 |
+| Stale reads during normal state   | E & C         | Tune for stronger consistency (EC)                                     |
+| High availability requirements    | A             | Choose Availability during partitions (PA)                             |
+| Eventual consistency side effects | C             | Shift toward strong consistency model                                  |
+| Global data replication           | E/L           | Pick replication strategies based on latency or correctness priorities |
+
+#### Where to Apply PACELC in System Design?
+
+PACELC helps you in the following system design areas:
+
+- Database choice: SQL vs NoSQL vs NewSQL
+- Replication model: Quorum-based vs Master-slave vs Leaderless
+- Write/read strategies: Synchronous vs asynchronous replication
+- Data sharding and geo-replication: Balancing latency with correctness
+- API design: Whether to fail fast (for consistency) or retry (for availability)
+- Consistency models: Eventual, strong, causal, session consistency, etc.
+
+#### Use Case Examples
+
+| Use Case / Need                            | Choose PACELC Trade-off      | Explanation                                                                                            |
+| ------------------------------------------ | ---------------------------- | ------------------------------------------------------------------------------------------------------ |
+| Financial transactions, banking            | CP + EC                      | Strong consistency always required, even if latency increases or availability drops during partitions. |
+| Social media feeds, user-generated content | AP + EL                      | High availability and low latency prioritized, stale data acceptable temporarily.                      |
+| E-commerce carts                           | AP + EL or CP + EC (tunable) | Availability to prevent cart loss, consistency needed at checkout, may tune per phase.                 |
+| Real-time messaging (chat)                 | AP + EL                      | Fast delivery important, slight eventual consistency tolerable.                                        |
+| IoT sensor data collection                 | AP + EL                      | Data ingestion prioritizes availability, consistency less strict.                                      |
+| Inventory management / booking system      | CP + EC                      | Prevent double booking, must be consistent even if slower or less available during partition.          |
+| Content Delivery Networks (CDNs)           | AP + EL                      | Prioritize latency and availability for user experience, stale content temporarily allowed.            |
+
+#### Best Practices for PACELC in Modern Systems
+
+1. **Identify Your Critical Consistency Points**
+
+   - Understand exactly which operations must be consistent (e.g., payments) vs where eventual consistency is acceptable (e.g., user profiles).
+   - Design different components or microservices with different PACELC trade-offs.
+
+2. **Use Tunable Consistency Where Possible**
+
+   - Modern databases (Cassandra, Cosmos DB) allow choosing consistency level per query.
+   - Use strong consistency for critical writes; eventual consistency for reads or non-critical operations.
+
+3. **Design for Graceful Degradation During Partitions**
+
+   - In AP systems, design clients to handle stale data and resolve conflicts asynchronously.
+   - In CP systems, provide clear user feedback if the system is temporarily unavailable.
+
+4. **Optimize for Latency Without Sacrificing Critical Consistency**
+
+   - Use caching, CDNs, and asynchronous replication to reduce latency in consistent systems.
+   - Consider read-repair or conflict-free replicated data types (CRDTs) for smooth eventual consistency.
+
+5. **Implement Monitoring and Alerting on Trade-offs**
+
+   - Track latency, availability, consistency errors, and partitions in real-time.
+   - Use metrics and SLAs to adjust system configuration dynamically.
+
+6. **Prepare for Network Partitions**
+
+   - Design retry strategies, circuit breakers, and fallback mechanisms.
+   - Use distributed consensus protocols (e.g., Paxos, Raft) for CP systems.
+
+7. **Communicate Trade-offs to Stakeholders**
+   - Clearly explain the impact of CAP and PACELC choices on user experience and business goals.
+   - Align consistency and availability choices with business risk tolerance.
+
+#### How to Choose PACELC in System Design
+
+**Step 1: Accept Partition Tolerance**
+
+As in CAP, P is non-negotiable in distributed systems. That part remains fixed.
+
+**Step 2: Choose A vs C — What to Sacrifice During Partition?**
+
+| Prioritize Consistency (C) | Prioritize Availability (A) |
+| -------------------------- | --------------------------- |
+| Financial transactions     | Messaging apps              |
+| Inventory systems          | Feed viewers (social apps)  |
+| Booking/ticketing          | Real-time dashboards        |
+| Strong business rules      | Media streaming             |
+
+**Step 3: Choose L vs C — What to Sacrifice When Network is Healthy?**
+
+| Prioritize Latency (L) | Prioritize Consistency (C)           |
+| ---------------------- | ------------------------------------ |
+| Low-latency UX needed  | Strong accuracy needed               |
+| Read-heavy systems     | Write-heavy with coordination        |
+| User-facing apps       | Complex workflows (banking, ledgers) |
+| Shopping catalogs      | Order processing                     |
+
+#### Tips to Apply PACELC in Design
+
+1. **Start from business requirements**  
+   Identify if latency, correctness, or availability is your highest priority.
+
+2. **Design for failure first (PA vs PC)**  
+   Assume partitions will happen — plan for them explicitly.
+
+3. **Then focus on user experience under normal ops (EL vs EC)**  
+   What will affect the end-user if consistency is delayed?
+
+4. **Use database support for fine-tuned controls**  
+   Choose databases like Cosmos DB, Cassandra, or MongoDB where consistency levels are configurable.
+
+5. **Evaluate per service in microservices**  
+   Not all services need the same PACELC strategy! Break it down per component.
 
 ### ACID vs BASE
 
-- **ACID properties in relational databases**
-- **BASE approach in NoSQL and distributed systems**
+#### What is ACID?
+
+ACID is a set of properties that guarantee reliable processing of database transactions in relational databases. These properties ensure the database remains in a valid state, even in cases of power failure, crashes, or errors.
+
+#### Breakdown of ACID Properties
+
+**1. Atomicity**
+
+- **Definition:** A transaction is all or nothing.
+- **Explanation:** If one part of a transaction fails, the entire transaction fails and the database state is left unchanged.
+- **Example:** In a money transfer, either both the debit and credit succeed, or neither does.
+
+**2. Consistency**
+
+- **Definition:** A transaction brings the database from one valid state to another.
+- **Explanation:** Data must always follow all rules, constraints, triggers, and relationships.
+- **Example:** You cannot end up with a negative bank balance if your system doesn't allow it.
+
+**3. Isolation**
+
+- **Definition:** Concurrent transactions don't interfere with each other.
+- **Explanation:** The final outcome must be as if the transactions were executed sequentially.
+- **Example:** Two users editing the same profile won't overwrite each other.
+
+**4. Durability**
+
+- **Definition:** Once a transaction is committed, it will persist, even if there's a crash.
+- **Explanation:** Data is saved in non-volatile memory and survives system failure.
+- **Example:** After hitting "submit," your order stays placed—even after a power outage.
+
+#### What is BASE?
+
+BASE is an alternative consistency model designed for distributed systems and NoSQL databases where scalability, availability, and fault tolerance are prioritized over strict consistency.
+
+#### Breakdown of BASE Properties
+
+**1. Basically Available**
+
+- **Definition:** The system guarantees availability, meaning it will always respond—even if the response is a failure or stale.
+- **Explanation:** During failures or high load, the system may degrade gracefully rather than become unavailable.
+
+**2. Soft State**
+
+- **Definition:** The system state may change even without new input.
+- **Explanation:** Due to eventual consistency, intermediate states may exist temporarily as data propagates across nodes.
+
+**3. Eventually Consistent**
+
+- **Definition:** The system guarantees that, given enough time, all replicas will converge to the same state.
+- **Explanation:** Immediate consistency is sacrificed for performance and availability.
+
+#### ACID vs BASE (Comparison)
+
+| Feature           | ACID (Relational DBs)                | BASE (Distributed Systems / NoSQL)      |
+| ----------------- | ------------------------------------ | --------------------------------------- |
+| Model Type        | Strict                               | Loosely consistent                      |
+| Consistency       | Strong                               | Eventual                                |
+| Availability      | Lower                                | Higher                                  |
+| Performance       | Slower                               | Faster                                  |
+| Use Case          | Banking, E-commerce, Enterprise apps | Social media, IoT, Streaming, Analytics |
+| Failure Tolerance | Low (fails safely)                   | High (degrades gracefully)              |
+| Example Systems   | MySQL, PostgreSQL, Oracle            | Cassandra, DynamoDB, Couchbase          |
+
+#### ACID in Relational Databases
+
+Relational databases like PostgreSQL, Oracle, and SQL Server implement ACID properties through:
+
+- Transaction logs: To ensure atomicity and durability.
+- Locks and latches: To ensure isolation.
+- Constraints and triggers: To ensure consistency.
+
+They are ideal when you need accuracy, integrity, and structured schemas—like in banking, inventory systems, ERP, or finance.
+
+#### BASE in NoSQL & Distributed Systems
+
+NoSQL databases like Cassandra, DynamoDB, and MongoDB follow BASE principles. They:
+
+- Allow eventual consistency across replicas
+- Use asynchronous replication
+- Prefer availability and partition-tolerance (based on PACELC or CAP models)
+
+They are used in big data, streaming services, real-time analytics, IoT, and social media platforms where scale and responsiveness matter more than perfect consistency.
+
+#### Why Do We Use ACID or BASE?
+
+**Use ACID when:**
+
+- Data correctness is critical (e.g., finance, healthcare)
+- Transactions must not lose or corrupt data
+- You can afford a slight performance cost for accuracy
+
+**Use BASE when:**
+
+- Scalability, speed, and fault tolerance are more important
+- Some degree of stale or inconsistent data is tolerable
+- You operate in a distributed, high-throughput environment
+
+#### Advantages and Disadvantages
+
+#### ACID
+
+**Advantages:**
+
+- Guarantees data integrity
+- Excellent for systems needing reliability
+- Easier to reason about program logic
+
+**Disadvantages:**
+
+- Harder to scale horizontally
+- Higher latency due to locking and isolation
+- May become a bottleneck in high-concurrency systems
+
+#### BASE
+
+**Advantages:**
+
+- High availability and scalability
+- Resilient to failure
+- Ideal for real-time, distributed workloads
+
+**Disadvantages:**
+
+- Inconsistent reads possible
+- Conflict resolution is complex
+- Harder to guarantee correctness
+
+#### When to Use Which?
+
+| Scenario             | ACID                      | BASE                                       |
+| -------------------- | ------------------------- | ------------------------------------------ |
+| Banking, payments    | ✅                        | ❌                                         |
+| Social network feed  | ❌                        | ✅                                         |
+| Inventory management | ✅                        | ❌ / partial BASE with conflict resolution |
+| Messaging systems    | ❌ (if speed is priority) | ✅                                         |
+| Order processing     | ✅ (must be accurate)     | ❌ (can cause issues)                      |
+| Analytics and logs   | ❌                        | ✅                                         |
+
+#### What Problem Does Each Solve?
+
+- **ACID solves:** correctness, integrity, and transactional reliability
+- **BASE solves:** availability, performance, and distributed data scaling
+
+Each solves a different system design problem based on context.
+
+#### Where to Use in System Design?
+
+In system design interviews, ACID vs BASE informs your data layer decisions.
+
+- Choose ACID for systems with strong correctness needs.
+- Choose BASE for systems where high throughput, fault tolerance, and horizontal scaling are critical.
+
+#### System Design Applications
+
+**1. Data Modeling**
+
+**ACID (Relational):**
+
+- Schema-driven and normalized
+- Strong data integrity using foreign keys, constraints
+- Example: Banking system with tightly coupled tables
+
+**BASE (NoSQL/Distributed):**
+
+- Schema-less or denormalized
+- Duplicate data acceptable for performance
+- Example: Social media platform with duplicated post data
+
+**2. Replication Strategies**
+
+**ACID:**
+
+- Synchronous replication
+- Writes confirmed after all replicas updated
+- Example: PostgreSQL synchronous replicas
+
+**BASE:**
+
+- Asynchronous replication
+- Eventual consistency
+- Example: Cassandra replication across regions
+
+**3. Caching Layers**
+
+**ACID:**
+
+- Tight coordination with source of truth
+- Requires cache invalidation logic
+
+**BASE:**
+
+- Loosely consistent with database
+- Accepts stale cache data
+- Example: Redis with eventual freshness
+
+**4. Consistency Models**
+
+**ACID:**
+
+- Strong consistency
+- Linearizability or serializability
+- Example: Financial applications
+
+**BASE:**
+
+- Eventual consistency
+- Tunable consistency levels
+- Example: Recommendation engines
+
+**5. Microservices Communication**
+
+**ACID:**
+
+- Distributed transactions (2PC)
+- Tight coupling
+- Example: Shared relational DB
+
+**BASE:**
+
+- Eventual consistency
+- Asynchronous messaging
+- Example: Event-driven architecture
+
+#### How to Choose Between ACID and BASE
+
+**1. Nature of the Application**
+
+| Application Type          | Model to Choose | Why                               |
+| ------------------------- | --------------- | --------------------------------- |
+| Banking / Payments        | ACID            | Must guarantee correctness        |
+| Social Media / News Feeds | BASE            | Prioritize speed and availability |
+| E-commerce Checkout       | ACID            | Prevent revenue loss              |
+| Product Search            | BASE            | High volume reads acceptable      |
+| Healthcare Systems        | ACID            | Regulations demand integrity      |
+| IoT Data Ingestion        | BASE            | Massive write throughput          |
+
+**2. Consistency Requirements**
+
+- **Strong, immediate consistency** → ACID
+- **Eventual consistency is fine** → BASE
+
+**3. Availability and Partition Tolerance (CAP Trade-Off)**
+
+- **Availability over Consistency** → BASE
+- **Consistency over Availability** → ACID
+
+**4. Scalability Needs**
+
+- **Vertical scaling** → ACID
+- **Horizontal scaling** → BASE
+
+**5. Latency Sensitivity**
+
+- **Can tolerate delay** → ACID
+- **Needs fast response** → BASE
+
+#### Mixing ACID and BASE: Hybrid Approaches
+
+Modern architectures often combine both:
+
+- Use ACID for critical workflows (checkout, billing)
+- Use BASE for scalable, user-facing parts (search, recommendations)
+
+| Component             | ACID or BASE | Reason                         |
+| --------------------- | ------------ | ------------------------------ |
+| User account data     | ACID         | Identity and security critical |
+| Product catalog       | BASE         | Tolerates eventual consistency |
+| Shopping cart         | ACID         | Must reflect true state        |
+| Recommendation engine | BASE         | Approximate and fast           |
+| Order processing      | ACID         | No partial/inconsistent orders |
+
+## 📌 Final Rule of Thumb
+
+- **If correctness > performance** → ACID
+- **If speed, scale, and tolerance > strict consistency** → BASE
 
 ### Consistency Models
 
-- **Strong, Eventual, Causal, Read-Your-Writes consistency explained**
+#### What Are Consistency Models?
+
+A consistency model is a formal contract between the storage system and the application that specifies what values a read operation can return after a series of write operations. These models determine how consistent data appears to users across replicas in distributed environments.
+
+The need arises from replication - when data is copied across multiple machines to improve:
+
+- Fault tolerance
+- Latency reduction
+- Throughput improvement
+
+#### Core Consistency Models
+
+**1. Strong Consistency**
+**Definition:**  
+Ensures every read receives the most recent write for a given piece of data. Once a write is acknowledged, any subsequent read (from any node) will see that write.
+
+**Example:**  
+Bank account balance - a deposit is immediately visible to all subsequent requests.
+
+**Use Cases:**
+
+- Banking and payment systems
+- Inventory management
+- Authentication systems
+
+| Pros                   | Cons                                |
+| ---------------------- | ----------------------------------- |
+| Simple mental model    | High latency                        |
+| Guarantees correctness | Poor availability during partitions |
+| Easy debugging         |                                     |
+
+**2. Eventual Consistency**
+**Definition:**  
+Guarantees that if no new writes are made, eventually all accesses will return the last updated value, with no time guarantee.
+
+**Example:**  
+Social media posts may take time to propagate to all feeds.
+
+**Use Cases:**
+
+- Social media platforms
+- DNS systems
+- Content delivery networks (CDNs)
+
+| Pros              | Cons                         |
+| ----------------- | ---------------------------- |
+| High availability | Stale reads possible         |
+| Low latency       | Requires conflict resolution |
+| Easy to scale     |                              |
+
+**3. Causal Consistency**
+**Definition:**  
+Preserves causal relationships between operations while allowing concurrent, unrelated operations to be reordered.
+
+**Example:**  
+Comment and edit operations must appear in correct order.
+
+**Use Cases:**
+
+- Collaborative apps (Google Docs)
+- Messaging systems
+- Real-time multi-user editing
+
+| Pros                                  | Cons                         |
+| ------------------------------------- | ---------------------------- |
+| Intuitive UX                          | Complex implementation       |
+| Avoids eventual consistency anomalies | Requires dependency tracking |
+
+**4. Read-Your-Writes Consistency**
+**Definition:**  
+Guarantees users always see their own writes, even if the system is eventually consistent for others.
+
+**Example:**  
+Profile picture updates are immediately visible to the user who changed them.
+
+**Use Cases:**
+
+- User dashboards
+- Profile management
+- Personal notifications
+
+| Pros                            | Cons                   |
+| ------------------------------- | ---------------------- |
+| Improved UX                     | Limited to single user |
+| Performance/correctness balance |                        |
+
+#### Hybrid Approaches
+
+Real-world systems often combine multiple models:
+
+| System          | Approach                                      |
+| --------------- | --------------------------------------------- |
+| Amazon DynamoDB | Eventual by default, strong when needed       |
+| Cassandra       | Configurable per-operation (QUORUM, ALL, ONE) |
+| Firebase        | Eventual for sync + Read-your-writes for UI   |
+
+#### Why Use Consistency Models?
+
+- Define correctness expectations
+- Design fault-tolerant replication
+- Optimize performance vs correctness
+- Ensure predictable user experience
+
+#### Model Comparison
+
+| Model            | Advantages                 | Disadvantages                         |
+| ---------------- | -------------------------- | ------------------------------------- |
+| Strong           | Predictable, safe          | High latency, poor availability       |
+| Eventual         | Highly available, scalable | Stale data, needs conflict resolution |
+| Causal           | Preserves logical order    | Complex implementation                |
+| Read-Your-Writes | User-friendly              | Limited scope                         |
+
+#### Use Case Recommendations
+
+| Use Case           | Recommended Model          | Reason                 |
+| ------------------ | -------------------------- | ---------------------- |
+| Bank transactions  | Strong                     | Correctness critical   |
+| Profile updates    | Read-your-writes           | User trust important   |
+| Messaging apps     | Causal                     | Preserve message order |
+| Social feeds       | Eventual                   | Throughput prioritized |
+| E-commerce catalog | Eventual                   | Tolerable lag          |
+| Cart/checkout      | Strong or Read-your-writes | Accuracy required      |
+
+#### System Design Applications
+
+Consistency models influence:
+
+- Database selection (SQL vs NoSQL)
+- Replication strategies
+- Caching policies
+- API response guarantees
+- User session handling
+
+#### Selection Guide
+
+Ask these questions:
+
+1. **Is correctness > availability?**  
+   → Strong or Causal
+
+2. **Can users tolerate stale data?**  
+   → Eventual
+
+3. **Need immediate feedback for user actions?**  
+   → Read-your-writes
+
+4. **Operations have causal relationships?**  
+   → Causal
+
+5. **Globally distributed system?**  
+   → Eventual or Hybrid
+
+6. **Concurrent writers?**  
+   → Use CRDTs or quorum models
+
+#### Implementation Considerations
+
+- **Strong consistency:** Requires synchronous replication
+- **Eventual consistency:** Needs conflict resolution (last-write-wins, vector clocks)
+- **Causal consistency:** Requires dependency tracking
+- **Read-your-writes:** Needs session affinity
+
+#### Performance Tradeoffs
+
+- Stronger consistency → Higher latency
+- Weaker consistency → Better availability
+- Hybrid approaches → More complex code paths
+
+#### Popular Implementations
+
+- **Strong:** PostgreSQL, MySQL (with proper configuration)
+- **Eventual:** Cassandra, DynamoDB (default)
+- **Causal:** MongoDB, Riak
+- **Read-your-writes:** Firebase, session-based systems
 
 ### Scalability
 
-- **Vertical scaling:** upgrading hardware
-- **Horizontal scaling:** adding machines
-- **Pros and cons of each**
+#### What Is Scalability?
+
+Scalability refers to a system's ability to handle increased workload gracefully by increasing resources. It's about efficiently, predictably, and cost-effectively managing growth while maintaining performance.
+
+#### Two Major Types of Scalability
+
+**1. Vertical Scaling (Scale-Up)**
+
+**Definition:**  
+Increases system capacity by upgrading hardware (CPU, RAM, storage) on a single machine.
+
+**Pros:**
+
+- Simpler implementation
+- Fewer architectural changes needed
+- Easier to maintain strong consistency
+- Good for legacy systems
+
+**Cons:**
+
+- Hardware limitations
+- Expensive high-end hardware
+- Single point of failure
+- Often requires downtime
+
+**Best Use Cases:**
+
+- Small to medium applications
+- Databases requiring strong consistency
+- Prototypes/MVPs with tight timelines
+
+**2. Horizontal Scaling (Scale-Out)**
+
+**Definition:**  
+Increases capacity by adding more machines to a distributed system.
+
+**Pros:**
+
+- Virtually unlimited scalability
+- Built-in fault tolerance
+- Cost-effective with commodity hardware
+- Enables distributed processing
+
+**Cons:**
+
+- Complex architecture
+- Consistency challenges
+- Higher operational overhead
+- Network latency concerns
+
+**Best Use Cases:**
+
+- Large-scale systems (social media, e-commerce)
+- Fault-tolerant architectures
+- Stateless microservices
+
+#### Comparison: Vertical vs Horizontal Scaling
+
+| Aspect            | Vertical Scaling     | Horizontal Scaling         |
+| ----------------- | -------------------- | -------------------------- |
+| Scale Limit       | Hardware-constrained | Theoretically unlimited    |
+| Cost              | Expensive upgrades   | Commodity hardware         |
+| Downtime          | Often required       | Minimal if designed well   |
+| Complexity        | Low                  | High (coordination needed) |
+| Consistency       | Strong               | Requires compromise        |
+| Typical Use Cases | Monoliths, SQL DBs   | Microservices, NoSQL       |
+
+#### Importance of Scalability
+
+Critical for:
+
+- Maintaining user experience under load
+- Ensuring system availability
+- Optimizing costs
+- Supporting business growth
+
+#### Why We Need Scalability
+
+- Handle growth without system rewrites
+- Improve performance through load distribution
+- Maintain reliability and uptime
+- Optimize cloud costs
+- Ensure fault tolerance
+
+#### Advantages & Disadvantages
+
+**Advantages:**
+
+- Future-proofs your system
+- Maintains performance under load
+- Improves fault tolerance (horizontal)
+- Provides operational flexibility
+
+**Disadvantages:**
+
+- Increases complexity (especially horizontal)
+- Higher initial costs (vertical)
+- Harder debugging in distributed systems
+- Data consistency challenges
+
+#### When to Use Each Scaling Type
+
+| Scenario                          | Recommended Approach     |
+| --------------------------------- | ------------------------ |
+| Growing database with low traffic | Vertical                 |
+| Global user base, real-time feeds | Horizontal               |
+| Startup MVP                       | Vertical (simple/cheap)  |
+| Multi-tenant SaaS platform        | Horizontal               |
+| Read-heavy applications           | Horizontal + replication |
+
+#### Where to Apply Scalability
+
+Consider scaling at every architectural layer:
+
+- **Application servers:** Horizontal replication
+- **Database:** Read replicas, sharding
+- **Cache:** Distributed clusters
+- **File storage:** Object stores (S3)
+- **Queue systems:** Kafka/RabbitMQ
+- **Load balancing:** Across nodes
+
+#### Hybrid Scaling Approach
+
+Most production systems combine both strategies:
+
+**When to Use Hybrid:**
+
+- Start vertical, evolve to horizontal
+- Vertical for DBs, horizontal for stateless services
+- Cloud-native implementations
+
+**Pros:**
+
+- Flexibility per layer
+- Cost optimization
+- Staged growth
+
+**Cons:**
+
+- Complex management
+- Monitoring challenges
+- Requires broader infrastructure knowledge
+
+#### Choosing the Right Model
+
+Key questions to ask:
+
+1. Will the system need massive scale?
+2. Is latency or availability more critical?
+3. Can your team handle distributed complexity?
+4. Prioritizing launch speed or future-proofing?
+
+**Rule of thumb:** Start simple with vertical scaling, then evolve to horizontal as needed.
+
+#### Scalability Decision Tree
+
+1. **Is your system experiencing performance issues under load?**
+
+   - No → Monitor & optimize
+   - Yes → Continue
+
+2. **Can workload be split across machines?**
+
+   - Yes → Go to 4
+   - No → Go to 3
+
+3. **Can hardware be upgraded?**
+
+   - Yes → ✅ Vertical Scaling
+   - No → ⚠️ Refactor needed
+
+4. **Need high availability/failover?**
+
+   - Yes → ✅ Horizontal Scaling
+   - No → Continue
+
+5. **Latency-sensitive with global users?**
+
+   - Yes → ✅ Horizontal + CDNs
+   - No → Continue
+
+6. **Immediate scaling needs but centralized?**
+
+   - Yes → ✅ Vertical (short-term), plan Hybrid
+   - No → ✅ Horizontal if possible
+
+7. **Both app and DB under pressure?**
+
+   - Yes → ✅ Hybrid Scaling
+   - No → Scale pressured layer
+
+8. **Have resources for distributed complexity?**
+   - Yes → ✅ Horizontal/Hybrid
+   - No → ⚠️ Start Vertical, plan Horizontal
+
+#### Summary of Outcomes
+
+| Scenario                    | Approach                        |
+| --------------------------- | ------------------------------- |
+| Simple bottleneck           | Vertical Scaling                |
+| Partitionable, high traffic | Horizontal Scaling              |
+| Mixed app & DB pressure     | Hybrid Scaling                  |
+| Limited resources           | Vertical first, plan Horizontal |
 
 ### Latency vs Throughput
 
