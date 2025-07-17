@@ -4,13 +4,19 @@
 
 1. [Foundations of System Design & Fundamentals](#1-foundations-of-system-design--fundamentals)
 
-   1.1. [What is System Design?](#what-is-system-design)
-
-   1.2. [Types of Design](#types-of-design)
-
-   1.3. [Requirements](#requirements)
-
-   1.4 [CAP Theorem](#cap-theorem)
+   - [What is System Design?](#what-is-system-design)
+   - [Types of Design](#types-of-design)
+   - [Requirements](#requirements)
+   - [CAP Theorem](#cap-theorem)
+   - [PACELC Theorem](#pacelc-theorem)
+   - [ACID vs BASE](#acid-vs-base)
+   - [Consistency Models](#consistency-models)
+   - [Scalability](#scalability)
+   - [Latency vs Throughput](#latency-vs-throughput)
+   - [Load Estimation](#load-estimation)
+   - [Availability, Reliability, Durability](#availability-reliability-durability)
+   - [Performance Bottlenecks](#performance-bottlenecks)
+   - [Monolith vs Microservices vs Serverless](#monolith-vs-microservices-vs-serverless)
 
 2. [Networking Basics & OS Concepts](#2-networking-basics--os-concepts)
 3. [Design Patterns and Architectures](#3-design-patterns-and-architectures)
@@ -1246,7 +1252,7 @@ Modern architectures often combine both:
 | Recommendation engine | BASE         | Approximate and fast           |
 | Order processing      | ACID         | No partial/inconsistent orders |
 
-## 📌 Final Rule of Thumb
+#### Final Rule of Thumb
 
 - **If correctness > performance** → ACID
 - **If speed, scale, and tolerance > strict consistency** → BASE
@@ -1636,13 +1642,297 @@ Key questions to ask:
 
 ### Latency vs Throughput
 
-- **Definitions, impact on system design**
-- **How to optimize each**
+#### What is Latency?
+
+Latency refers to the time it takes for a request to travel from the client to the system, get processed, and for the response to come back. It’s measured in units of time (like milliseconds).
+
+In simpler terms, latency measures the delay in response—how long the user waits after clicking a button or hitting an endpoint.
+
+**Example:**  
+If a user clicks "Buy Now" and the confirmation takes 2 seconds to appear, that’s a **2-second latency**. High latency leads to sluggish experiences, critical in real-time applications like online gaming, video calls, or trading platforms.
+
+#### What is Throughput?
+
+Throughput refers to how many requests a system can handle per unit of time, typically measured as **requests per second (RPS)**. It reflects capacity—how much work your system can do in a given timeframe.
+
+**Example:**  
+An API server that handles **10,000 requests per second** has high throughput. It’s key in systems like batch processors, video streaming services, or large-scale web apps where request volume is massive.
+
+#### Latency vs Throughput: The Trade-off
+
+- **Latency** is about **speed per operation**.
+- **Throughput** is about **volume over time**.
+
+Optimizing one often affects the other. Lowering latency (making things faster per user) can reduce the total number of requests you can handle (throughput), and vice versa. This trade-off becomes a critical design decision based on use case.
+
+#### Why Are They Important in System Design?
+
+Understanding latency and throughput is fundamental to building **scalable, responsive systems**.
+
+A system with:  
+✔ **Low latency but low throughput** → Feels snappy but fails under high load.  
+✔ **High throughput but high latency** → Handles heavy traffic but delivers poor UX.
+
+**Choosing the right balance ensures:**
+
+- Better user experience
+- High availability
+- Efficient resource usage
+- Proper load distribution
+
+---
+
+#### Advantages & Disadvantages
+
+| **Metric**     | **Advantages**                              | **Disadvantages**                          |
+| -------------- | ------------------------------------------- | ------------------------------------------ |
+| **Latency**    | Better UX, responsive apps                  | Hard to maintain under load, needs caching |
+| **Throughput** | Handles more load, efficient resource usage | May increase latency if not optimized      |
+
+#### When to Focus on Latency vs Throughput?
+
+| **Use Case**                         | **Focus On** |
+| ------------------------------------ | ------------ |
+| Real-time communication (VoIP, Chat) | Latency      |
+| E-commerce checkout                  | Latency      |
+| Bulk data import                     | Throughput   |
+| Video streaming (CDN delivery)       | Both         |
+| High-frequency trading               | Latency      |
+| Big data processing                  | Throughput   |
+
+#### Where to Use It in System Design
+
+- **API Gateway** → Optimize for **low latency** to reduce request overhead.
+- **Database Layer** → Tune indexes for **latency**, scale shards for **throughput**.
+- **Load Balancer** → Spread requests for **higher throughput**, reduce latency spikes.
+- **Caching (Redis, CDN)** → Reduces **latency**, increases effective **throughput**.
+- **Queues (Kafka, RabbitMQ)** → Designed for **throughput**, with possible latency trade-offs.
+
+#### How to Choose Which to Optimize
+
+- **Are users experiencing delays?** → Optimize **latency**.
+- **Is the system crashing under load?** → Optimize **throughput**.
+- **Both happening?** → Need **scalable architecture** (horizontal scaling, caching, async patterns).
+
+#### How to Optimize for Latency
+
+✔ Use **in-memory caches** (Redis, Memcached)  
+✔ Deploy **CDNs for static assets**  
+✔ **Reduce round trips** (batch requests, compress data)  
+✔ Optimize **algorithms, DB indexes, queries**  
+✔ Use **edge computing or multi-region deployments**
+
+#### How to Optimize for Throughput
+
+✔ Use **load balancers** to distribute traffic  
+✔ **Scale horizontally** (add more machines)  
+✔ Use **asynchronous processing** (message queues)  
+✔ Apply **sharding & partitioning** in DBs  
+✔ Optimize **thread pools & connection pooling**
+
+#### Hybrid Considerations
+
+Modern systems optimize **both** using hybrid designs:
+
+- **Caching + async queues** → Reduces latency while increasing throughput.
+- **CDN + sharded backend** → Fast reads + distributed scale.
+- **DB read replicas** → Scale read throughput while maintaining acceptable latency.
+
+#### Summary: Key Questions to Ask
+
+- **Do you need instant responses?** → Focus on **latency**.
+- **Are you processing tons of data per second?** → Focus on **throughput**.
+- **Can users tolerate delay for high volume?** → Prioritize **throughput**.
+- **Is it a user-facing app with heavy load?** → Optimize **both**.
 
 ### Load Estimation
 
-- **Queries per second (QPS), requests per second (RPS)**
-- **Storage needs estimation**
+#### What is Load Estimation?
+
+Load Estimation is the process of predicting the expected operational demand on a system. It includes calculating metrics like:
+
+- **Queries Per Second (QPS):** Database-level reads/writes per second
+- **Requests Per Second (RPS):** API or web-level incoming HTTP calls
+- **Storage Needs Estimation:** Projected volume of data stored over time
+
+This process helps you anticipate how your system will behave under load, both at present and as it grows.
+
+#### Breaking Down the Components
+
+**1. Queries Per Second (QPS)**
+
+Refers to how many database operations are performed each second—like selects, inserts, updates.  
+**Why it matters:**
+
+- Sizing your DB engine
+- Optimizing indexes
+- Planning read/write replicas
+
+**2. Requests Per Second (RPS)**
+
+Measures how many HTTP requests (or service calls) your system handles per second.  
+**Why it matters:**
+
+- Scaling application servers
+- Configuring load balancers
+- Frontend caching strategies
+
+**3. Storage Needs Estimation**
+
+Focuses on how much disk/data storage your application will require.  
+**Includes:**
+
+- Raw user data
+- Logs, backups, caches
+- Analytic aggregates
+
+**Why it matters:**
+
+- Deciding disk capacity
+- Database sharding
+- Object storage (like S3) planning
+
+#### Why Load Estimation is Important
+
+Load estimation directly informs system architecture and scalability planning. Without it, you may:
+
+- Overprovision resources (wasting money)
+- Underprovision and risk downtime/poor UX
+- Fail to plan for scaling, caching, or disaster recovery
+
+**Key Benefit:** Keeps your system **cost-effective, reliable, and performant**.
+
+#### Advantages vs Disadvantages
+
+**Advantages**
+
+| **Benefit**               | **Why It Matters**                    |
+| ------------------------- | ------------------------------------- |
+| Prevents system overload  | Avoid crashes during traffic spikes   |
+| Enables capacity planning | Save costs by scaling gradually       |
+| Improves response time    | Helps design for latency/throughput   |
+| Aligns with SLAs          | Keeps service levels within contracts |
+
+**Disadvantages/Pitfalls**
+
+- Requires guesswork for early-stage products
+- Inaccurate forecasts → mis-provisioning
+- Risk of over-engineering for hypothetical loads
+- Needs constant re-estimation as usage grows
+
+**Pro Tip:** Even an approximate estimate is better than none!
+
+#### When and Where to Use Load Estimation
+
+| **Scenario**                    | **Application**                          |
+| ------------------------------- | ---------------------------------------- |
+| Before designing architecture   | Monolith vs microservices, DB choice     |
+| Scaling vertically/horizontally | Sizing machines, threads, containers     |
+| Choosing caching strategies     | High QPS? Add Redis/Memcached            |
+| Planning storage solutions      | TBs of data? Plan S3, retention policies |
+| Setting SLAs & autoscaling      | Define latency/failure thresholds        |
+
+#### What Problems Does Load Estimation Solve?
+
+| **Problem**                      | **Solution via Load Estimation**       |
+| -------------------------------- | -------------------------------------- |
+| App crashes during traffic surge | Estimate RPS → autoscale instances     |
+| Slow DB reads                    | Estimate QPS → add read replicas/cache |
+| Running out of storage           | Estimate growth → size disks/buckets   |
+| Laggy UX                         | Match workload to server capacity      |
+
+#### Step-by-Step Load Estimation Approach
+
+**Step 1: Define Core Metrics**
+
+- Users per day
+- Actions per user (e.g., likes, searches)
+- API calls per action
+- **Calculate:** `RPS = (Users × Actions × API Calls) / 86,400`
+
+**Step 2: Peak vs Average Load**
+
+- Plan for **peak load** (e.g., Black Friday)
+- Add buffer (e.g., **3x peak**)
+
+**Step 3: Storage Estimation**
+
+- Avg size per record (e.g., 1KB/message)
+- Records per user per month
+- Add **10-30%** for logs/metadata
+
+**Step 4: Model Growth Scenarios**
+
+- Simulate **1x, 10x, 100x** growth
+- Identify bottlenecks: compute, bandwidth, storage
+
+**Step 5: Monitor & Refine**
+
+- Use **Prometheus, Grafana, CloudWatch**
+- Continuously adjust estimates with real data
+
+#### Interaction Between QPS, RPS & Storage
+
+**Example Cascade:**  
+`1M RPS → 100K QPS → 500GB/month storage`  
+**Design each layer accordingly:**  
+Frontend → Backend → DB → Storage → Monitoring
+
+#### Proactive vs Reactive Estimation
+
+| **Approach** | **Description**                 | **Example**                     |
+| ------------ | ------------------------------- | ------------------------------- |
+| Proactive    | Estimate based on specs + usage | 10K users/day, 5MB uploads/user |
+| Reactive     | Use real metrics post-launch    | Logs show 5 RPS at peak         |
+
+**Best Practice:** Start proactive, refine reactively.
+
+#### Key Takeaways
+
+- Load estimation drives **smart system design**
+- Impacts **storage, DB choice, scaling, caching**
+- Always estimate **RPS, QPS, and data growth**
+- Continuously **monitor and iterate**
+- Design for **growth**, not just current load
+
+#### How to Calculate Each Component
+
+**1. Requests Per Second (RPS)**
+
+**Formula:**  
+RPS = (Daily Active Users × Avg Requests per User) / 86,400
+
+**Example:**  
+100,000 users × 50 requests/day → **~58 RPS**
+
+### 🔹 Queries Per Second (QPS)
+
+**Formula:**  
+QPS = RPS × Avg DB Queries per Request
+
+**Example:**  
+58 RPS × 3 DB queries → **174 QPS**  
+_(Tip: Separate read/write QPS!)_
+
+### 🔹 Storage Estimation
+
+**Formula:**  
+Daily Storage = (Objects/Day × Avg Size)
+Monthly Storage = Daily × 30 + 20-30% buffer
+
+**Example:**  
+100K users × 3 photos/day × 2MB → **600GB/day → 18TB/month**
+
+---
+
+## 📌 Summary Checklist
+
+| **Component** | **Calculation**                        |
+| ------------- | -------------------------------------- |
+| RPS           | (Users × Actions × API Calls) / 86,400 |
+| QPS           | RPS × Avg DB Queries per Request       |
+| Storage       | Objects/day × Size × Time × Buffer     |
+| Network       | RPS × Avg Response Size × 8 (bits)     |
 
 ### Availability, Reliability, Durability
 
