@@ -1905,7 +1905,7 @@ RPS = (Daily Active Users × Avg Requests per User) / 86,400
 **Example:**  
 100,000 users × 50 requests/day → **~58 RPS**
 
-### 🔹 Queries Per Second (QPS)
+**2. Queries Per Second (QPS)**
 
 **Formula:**  
 QPS = RPS × Avg DB Queries per Request
@@ -1914,7 +1914,7 @@ QPS = RPS × Avg DB Queries per Request
 58 RPS × 3 DB queries → **174 QPS**  
 _(Tip: Separate read/write QPS!)_
 
-### 🔹 Storage Estimation
+**3. Storage Estimation**
 
 **Formula:**  
 Daily Storage = (Objects/Day × Avg Size)
@@ -1923,9 +1923,7 @@ Monthly Storage = Daily × 30 + 20-30% buffer
 **Example:**  
 100K users × 3 photos/day × 2MB → **600GB/day → 18TB/month**
 
----
-
-## 📌 Summary Checklist
+#### Summary Checklist
 
 | **Component** | **Calculation**                        |
 | ------------- | -------------------------------------- |
