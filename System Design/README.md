@@ -1934,11 +1934,436 @@ Monthly Storage = Daily × 30 + 20-30% buffer
 
 ### Availability, Reliability, Durability
 
-- **Definitions and metrics (e.g., uptime, MTBF)**
+#### Availability
+
+Availability is the measure of a system’s readiness to deliver its intended service at any given moment. It tells us how often a system is up and running.
+
+**Example**: If an e-commerce site is not reachable due to server downtime, it's experiencing availability issues — regardless of whether its database or logic is working fine.
+
+#### Formula
+
+`Availability = Uptime / (Uptime + Downtime)`
+
+Typically expressed as a percentage over time (monthly or yearly).
+
+**Common industry targets**:
+
+| Availability %         | Downtime/year  |
+| ---------------------- | -------------- |
+| 99.0%                  | ~3.65 days     |
+| 99.9% ("three nines")  | ~8.76 hours    |
+| 99.99%                 | ~52.56 minutes |
+| 99.999% ("five nines") | ~5.26 minutes  |
+
+#### Metrics
+
+- Uptime monitoring
+- MTTR (Mean Time To Recovery)
+- Downtime duration/frequency
+
+#### How to Achieve High Availability
+
+- Load balancing (across zones/servers)
+- Auto-healing infrastructure (e.g., Kubernetes)
+- Failover systems (active-passive or active-active)
+- Redundant instances, zones, and regions
+- Health checks and graceful degradation
+
+#### Design Tradeoffs
+
+- High availability increases cost and complexity
+- May sacrifice consistency (CAP Theorem)
+
+---
+
+#### Reliability
+
+Reliability measures the consistency and correctness of a system's performance over time — that it does what it’s supposed to do, without errors or failure.
+
+A reliable system won’t crash frequently, misbehave randomly, or corrupt data over time.
+
+#### Formula (Typical Metrics)
+
+`MTBF (Mean Time Between Failures) = Total Uptime / Number of Failures`
+
+Other supporting metrics:
+
+- Error rate
+- Service degradation frequency
+- Fault tolerance thresholds
+
+#### How to Achieve Reliability
+
+- Retry logic with exponential backoff
+- Circuit breakers and rate limiters
+- Redundant subsystems
+- Automated testing and chaos engineering
+- Idempotent APIs and graceful error handling
+
+#### Design Tradeoffs
+
+- Can result in slower responses (e.g., retry logic)
+- May require deeper operational complexity and alerting
+
+---
+
+#### Durability
+
+Durability ensures that data is not lost once it's acknowledged as saved — even in the event of crashes, power loss, or hardware failure.
+
+It’s about long-term data survival, not short-term access.
+
+#### Metric Approaches
+
+No single formula, but often expressed as:
+
+- % data retained over time (e.g., 99.999999999% durability for S3)
+- Backup frequency and restore success rate
+
+#### How to Achieve Durability
+
+- Write-ahead logging (WAL)
+- Data replication (multi-disk, multi-zone, multi-region)
+- Regular snapshots and backups
+- RAID storage, distributed file systems (e.g., HDFS, Ceph)
+- Consensus protocols (Paxos, Raft)
+
+#### Design Tradeoffs
+
+- Often more costly (storage, replication)
+- May increase write latency
+- Requires operational processes for backup/restore verification
+
+---
+
+#### Combining All Three: The Reliability Triad
+
+| Property     | Focus             | Key Risk Reduced |
+| ------------ | ----------------- | ---------------- |
+| Availability | Uptime            | Outage           |
+| Reliability  | Consistency       | Errors & crashes |
+| Durability   | Data Preservation | Data loss        |
+
+These three are closely related. A real-world system needs all three but often emphasizes them based on specific use cases.
+
+#### Example Mix
+
+**Banking App**:
+
+- Availability: Must be online 24/7
+- Reliability: Transactions must be 100% correct
+- Durability: Every transaction must be stored safely forever
+
+**Streaming Service (e.g., Netflix)**:
+
+- Availability: Very high to keep users watching
+- Reliability: Video playback must not fail
+- Durability: Can tolerate some loss (e.g., cache miss) — so it's lower priority
+
+---
+
+#### Importance in System Design
+
+These three properties are central to building:
+
+- Highly scalable systems
+- SLA/SLO/SLI compliant systems
+- Distributed systems that work across data centers and zones
+
+They guide design decisions about:
+
+- Redundancy
+- Replication
+- Backup strategies
+- Error handling
+- Deployment topologies
+
+---
+
+#### Calculations Summary
+
+#### Availability
+
+`= (Uptime) / (Uptime + Downtime)`
+
+e.g., 364 days up, 1 day down → 364 / 365 ≈ 99.73%
+
+#### Reliability
+
+`
+= 1 - (Number of failures / Total ops)`
+
+`= Measured via MTBF: Mean Time Between Failures
+`
+
+#### Durability
+
+No exact formula, but:
+
+- Based on number of successful vs. failed data retention events
+- % durability offered by storage systems (e.g., Amazon S3: 11 9's)
+
+---
+
+#### When to Use Each & Where in System Design
+
+| Layer/Component      | Focus                        |
+| -------------------- | ---------------------------- |
+| Load balancers       | Availability                 |
+| Retry mechanisms     | Reliability                  |
+| Database replication | Durability                   |
+| Health checks        | Availability                 |
+| Distributed cache    | Often available, not durable |
+| Backups              | Durability                   |
+
+---
+
+#### Advantages & Disadvantages
+
+| Feature      | Advantages                         | Disadvantages                       |
+| ------------ | ---------------------------------- | ----------------------------------- |
+| Availability | Happy users, no downtime           | High infra cost, complex failovers  |
+| Reliability  | Trustworthy experience, fewer bugs | Slower under retry-heavy conditions |
+| Durability   | Data safety, legal compliance      | Slower writes, high storage costs   |
+
+---
+
+#### Design Guidelines & Tips
+
+- Prioritize availability in real-time apps, user-facing services
+- Prioritize reliability in APIs, payment processing, infrastructure
+- Prioritize durability in data stores, analytics pipelines
+
+**Important**: Often, you can't maximize all three simultaneously. Trade-offs are key.
+
+---
+
+#### Achieving These in Practice
+
+| Strategy                              | What It Improves               |
+| ------------------------------------- | ------------------------------ |
+| Multi-region deployment               | Availability & Durability      |
+| Redundant components (HA)             | Availability                   |
+| Retry + backoff + circuit breakers    | Reliability                    |
+| Quorum-based replication (Raft)       | Durability & Reliability       |
+| Snapshots + backups + versioning      | Durability                     |
+| Observability (logs, alerts, tracing) | All 3 via proactive monitoring |
+
+---
+
+#### Conclusion: Choosing What to Prioritize
+
+| App Type          | Availability | Reliability | Durability |
+| ----------------- | ------------ | ----------- | ---------- |
+| E-commerce        | ✅✅✅       | ✅✅✅      | ✅✅✅     |
+| Social Media Feed | ✅✅✅       | ✅✅        | ✅         |
+| Video Streaming   | ✅✅✅       | ✅✅        | ✅         |
+| Banking App       | ✅✅✅       | ✅✅✅      | ✅✅✅     |
+| Analytics Jobs    | ✅           | ✅✅        | ✅✅✅     |
 
 ### Performance Bottlenecks
 
-- **Identifying CPU, I/O, network, database bottlenecks**
+#### What Are Performance Bottlenecks?
+
+A performance bottleneck is any component in a system that limits the overall throughput, responsiveness, or scalability of the application. It's the slowest or most overloaded part of your system, and it affects the entire system's ability to perform efficiently.
+
+**Analogy**: Think of a system like a pipeline — even if 9 out of 10 pipes are wide, one narrow pipe limits the total flow. That narrow pipe is your bottleneck.
+
+#### Types of Performance Bottlenecks
+
+**1. CPU Bottlenecks**
+
+**Definition**: Occurs when the processor is maxed out and cannot keep up with the incoming workload.
+
+**Symptoms**:
+
+- High CPU usage (near 100%)
+- Slow computation or request handling
+- Thread contention or process starvation
+
+**Typical Causes**:
+
+- Inefficient algorithms or tight loops
+- Single-threaded operations in a multi-core system
+- Lack of parallelism
+- Blocking operations on CPU-bound tasks
+
+**How to Resolve**:
+
+- Optimize algorithms (e.g., Big-O complexity)
+- Use concurrency and parallelism (multithreading, async)
+- Offload to GPUs or specialized hardware (e.g., SIMD)
+- Use caching to avoid recomputation
+
+**2. I/O Bottlenecks**
+
+**Definition**: Arises when input/output operations (disk, file systems, etc.) slow down the system.
+
+**Symptoms**:
+
+- Slow disk reads/writes
+- Delayed log file processing
+- Thread blocking on file access
+- High latency in data retrieval
+
+**Typical Causes**:
+
+- Synchronous blocking I/O operations
+- Too many write operations (e.g., logging)
+- Poor disk performance or high seek times
+
+**How to Resolve**:
+
+- Use asynchronous I/O
+- Use SSDs instead of HDDs
+- Batch I/O operations (write less often, in bulk)
+- Minimize logging or use log aggregation systems
+
+**3. Network Bottlenecks**
+
+**Definition**: Occurs when the network is congested or has insufficient bandwidth to handle data transmission.
+
+**Symptoms**:
+
+- High latency between services
+- Timeouts and dropped packets
+- Throttling by external APIs
+- Low throughput despite available CPU
+
+**Typical Causes**:
+
+- Large payloads (uncompressed JSON, images)
+- Too many synchronous API calls
+- Inefficient communication protocols (e.g., HTTP/1.1 instead of gRPC)
+- Network congestion or poor routing
+
+**How to Resolve**:
+
+- Use compression (gzip, Brotli)
+- Switch to binary or efficient protocols (gRPC, Protobuf)
+- Implement batching and aggregation
+- Use CDNs for static assets
+- Move services closer (e.g., edge computing)
+
+**4. Database Bottlenecks**
+
+**Definition**: Happens when database read/write performance lags behind request demand.
+
+**Symptoms**:
+
+- Slow queries and high query latency
+- Locking, deadlocks, or timeouts
+- Long-running transactions
+- High CPU or memory usage in DB server
+
+**Typical Causes**:
+
+- Poor indexing or unoptimized queries
+- High volume of reads/writes without caching
+- Monolithic DB design (single instance serving all traffic)
+- Too many joins or unnormalized data
+
+**How to Resolve**:
+
+- Add proper indexes, optimize queries (use EXPLAIN plans)
+- Introduce caching layers (Redis, Memcached)
+- Use read replicas or sharding
+- Use denormalization where needed
+- Offload analytics to data warehouses
+
+#### Mix of All Bottlenecks in Real Systems
+
+In real-world distributed systems, bottlenecks are often interdependent. For example:
+
+- A CPU bottleneck in a service causes slower processing → leads to longer open network connections → triggers a network bottleneck.
+- Slow DB queries delay responses → causes threads to queue up → creating a CPU bottleneck due to context switching.
+
+**Identifying and fixing just one layer without understanding the others can lead to partial fixes or new problems elsewhere.**
+
+#### Importance of Identifying Performance Bottlenecks
+
+Performance bottlenecks are critical to:
+
+- **System Scalability**: Bottlenecks restrict horizontal scaling (adding more instances won't help if the DB is slow)
+- **User Experience**: Latency and downtime directly hurt the end-user experience
+- **Resource Utilization**: Bottlenecks lead to under-utilization or overuse of infrastructure
+- **Cost Optimization**: Fixing bottlenecks often reduces cloud costs — fewer instances, faster responses
+
+#### Why Do We Analyze Bottlenecks?
+
+We use performance bottleneck analysis to:
+
+- Improve throughput and latency
+- Meet SLAs/SLOs
+- Design for scale and fault tolerance
+- Plan capacity and provisioning
+- Prioritize optimization efforts (not all slowdowns matter equally)
+
+#### Advantages and Disadvantages
+
+| Aspect              | Advantages                                 | Disadvantages                            |
+| ------------------- | ------------------------------------------ | ---------------------------------------- |
+| Performance tuning  | Improves scalability and user satisfaction | Can be time-consuming and complex        |
+| Bottleneck analysis | Helps localize root cause of slowdowns     | May need deep instrumentation            |
+| Optimization        | Can reduce cost and infra requirements     | May introduce complexity (e.g., caching) |
+
+#### When to Analyze Which Bottleneck?
+
+| Scenario                       | Likely Bottleneck        |
+| ------------------------------ | ------------------------ |
+| Slow API response              | CPU, DB, Network         |
+| Slow startup or background job | Disk I/O, CPU            |
+| Dropped requests under load    | CPU, Network, Threadpool |
+| High DB load                   | DB, I/O                  |
+| Long upload/download times     | Network, Disk I/O        |
+
+**Use observability tools like**:
+
+- APM: Datadog, New Relic
+- Tracing: Jaeger, OpenTelemetry
+- Profilers: Flame graphs, CPU profilers
+- Logs & metrics: Prometheus + Grafana, ELK stack
+
+#### Where in System Design Do Bottlenecks Appear?
+
+| System Layer       | Bottleneck Type    |
+| ------------------ | ------------------ |
+| Frontend (browser) | Network, Rendering |
+| Backend API        | CPU, DB, Network   |
+| Microservices      | Network, CPU       |
+| Databases          | Disk I/O, Memory   |
+| Caches             | Network, Memory    |
+| Batch processing   | I/O, CPU           |
+
+#### How to Resolve Performance Bottlenecks
+
+**Step-by-step Process:**
+
+1. **Measure**: Use profiling, logging, tracing to identify where time/resources are spent
+2. **Isolate**: Localize the layer or component causing delays
+3. **Benchmark**: Compare against expected performance
+4. **Optimize**: Apply known solutions (caching, compression, load balancing)
+5. **Scale**: Add replicas, scale horizontally or vertically
+6. **Re-test**: Ensure the bottleneck is removed and no new one appears
+
+#### Optimization Techniques:
+
+- Load balancing
+- Query optimization
+- Async processing (queues)
+- Data partitioning/sharding
+- CDN for static content
+- Autoscaling
+- Rate limiting and backpressure
+
+#### Summary: Choosing the Right Focus
+
+| Bottleneck | Impact Area             | Tooling                 | Fix Examples                   |
+| ---------- | ----------------------- | ----------------------- | ------------------------------ |
+| CPU        | Processing time         | Profiler, Tracer        | Optimize code, add threads     |
+| I/O        | Latency in reads/writes | Disk metrics, Traces    | Async I/O, SSDs                |
+| Network    | Latency & throughput    | Packet captures, Logs   | Compression, batching, CDN     |
+| Database   | Latency, app errors     | Query Profiler, Slowlog | Indexing, caching, replication |
 
 ### Monolith vs Microservices vs Serverless
 
@@ -2447,4 +2872,3 @@ Monthly Storage = Daily × 30 + 20-30% buffer
 - **Draw Architecture Diagrams**
 
 - **Discuss Real-world Examples**
-  `
